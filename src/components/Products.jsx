@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { FiHeart, FiShoppingCart, FiStar } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
 
@@ -100,11 +101,11 @@ export default function Products() {
           {products.map((product) => (
             <div
               key={product.id}
-              className="group bg-white rounded-2xl border border-peach/30 overflow-hidden hover:shadow-xl hover:shadow-peach/20 transition-all duration-300 hover:-translate-y-1"
+              className="group bg-white rounded-2xl border border-peach/30 overflow-hidden hover:shadow-xl hover:shadow-peach/20 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:border-ribbon-red/30"
             >
               {/* Product Image Area */}
               <div className="relative bg-gradient-to-br from-cream to-soft-pink/50 p-8 flex items-center justify-center h-56">
-                <span className="text-6xl group-hover:scale-110 transition-transform duration-300">
+                <span className="text-6xl group-hover:scale-125 group-hover:rotate-3 transition-transform duration-500 ease-out">
                   {product.emoji}
                 </span>
                 {/* Badge */}
@@ -113,7 +114,7 @@ export default function Products() {
                 </span>
                 {/* Wishlist */}
                 <button
-                  className="absolute top-4 right-4 w-9 h-9 bg-white rounded-full shadow flex items-center justify-center hover:bg-ribbon-red hover:text-white transition-colors text-primary"
+                  className="absolute top-4 right-4 w-9 h-9 bg-white rounded-full shadow flex items-center justify-center hover:bg-ribbon-red hover:text-white transition-all duration-300 text-primary opacity-0 group-hover:opacity-100 hover:scale-110"
                   aria-label={`Add ${product.name} to wishlist`}
                 >
                   <FiHeart size={16} />
@@ -137,7 +138,7 @@ export default function Products() {
                   </div>
                   <button
                     onClick={() => handleOrder(product)}
-                    className="flex items-center gap-2 bg-[#25D366] hover:bg-[#1da851] text-white px-4 py-2 rounded-full text-sm font-medium transition-colors"
+                    className="flex items-center gap-2 bg-[#25D366] hover:bg-[#1da851] text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 hover:shadow-md"
                     aria-label={`Order ${product.name} via WhatsApp`}
                   >
                     <FiShoppingCart size={14} />
@@ -151,12 +152,12 @@ export default function Products() {
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <a
-            href="#"
+          <Link
+            to="/products"
             className="inline-flex items-center gap-2 border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-full font-semibold transition-all"
           >
             {t('products.viewAll')}
-          </a>
+          </Link>
         </div>
       </div>
     </section>
