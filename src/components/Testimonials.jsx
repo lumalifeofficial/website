@@ -1,41 +1,44 @@
 import { FiStar, FiHeart } from 'react-icons/fi'
-
-const testimonials = [
-  {
-    name: 'Sarah M.',
-    role: 'Verified Buyer',
-    avatar: '👩',
-    rating: 5,
-    text: 'The bear night lamp is SO cute! My daughter loves it. The quality is amazing for the price. Will order more!',
-  },
-  {
-    name: 'James K.',
-    role: 'Verified Buyer',
-    avatar: '👨',
-    rating: 5,
-    text: 'Everything came perfectly packaged with adorable touches. The stirring mug is both functional and kawaii!',
-  },
-  {
-    name: 'Lisa R.',
-    role: 'Verified Buyer',
-    avatar: '👩‍🦰',
-    rating: 5,
-    text: 'Best online store for cute lifestyle products! Fast shipping and amazing customer service. 10/10 recommend ♡',
-  },
-]
+import { useLanguage } from '../i18n/LanguageContext'
 
 export default function Testimonials() {
+  const { t } = useLanguage()
+
+  const testimonials = [
+    {
+      name: 'Sarah M.',
+      role: t('testimonials.verifiedBuyer'),
+      avatar: '👩',
+      rating: 5,
+      text: t('testimonials.review1'),
+    },
+    {
+      name: 'James K.',
+      role: t('testimonials.verifiedBuyer'),
+      avatar: '👨',
+      rating: 5,
+      text: t('testimonials.review2'),
+    },
+    {
+      name: 'Lisa R.',
+      role: t('testimonials.verifiedBuyer'),
+      avatar: '👩‍🦰',
+      rating: 5,
+      text: t('testimonials.review3'),
+    },
+  ]
+
   return (
     <section className="py-20 bg-white/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="text-ribbon-red font-semibold text-sm uppercase tracking-wider">Testimonials</span>
+          <span className="text-ribbon-red font-semibold text-sm uppercase tracking-wider">{t('testimonials.sectionLabel')}</span>
           <h2 className="text-3xl sm:text-4xl font-bold text-primary mt-2 mb-4">
-            What Our Customers Say 💕
+            {t('testimonials.title')}
           </h2>
           <p className="text-warm-brown/60 max-w-2xl mx-auto">
-            Join thousands of happy customers who trust LUMA for cute and quality products.
+            {t('testimonials.description')}
           </p>
         </div>
 

@@ -1,29 +1,32 @@
 import { FiTruck, FiShield, FiRefreshCw, FiHeadphones } from 'react-icons/fi'
-
-const features = [
-  {
-    icon: FiTruck,
-    title: 'Free Shipping',
-    description: 'Free delivery on all orders over $50. Fast and reliable worldwide shipping.',
-  },
-  {
-    icon: FiShield,
-    title: 'Secure Payment',
-    description: 'Your payment info is safe with 256-bit SSL encryption on every transaction.',
-  },
-  {
-    icon: FiRefreshCw,
-    title: 'Easy Returns',
-    description: '30-day hassle-free return policy. Not satisfied? Get your money back.',
-  },
-  {
-    icon: FiHeadphones,
-    title: '24/7 Support',
-    description: 'Our dedicated support team is here to help you anytime, anywhere.',
-  },
-]
+import { useLanguage } from '../i18n/LanguageContext'
 
 export default function Features() {
+  const { t } = useLanguage()
+
+  const features = [
+    {
+      icon: FiTruck,
+      title: t('features.freeShipping'),
+      description: t('features.freeShippingDesc'),
+    },
+    {
+      icon: FiShield,
+      title: t('features.securePayment'),
+      description: t('features.securePaymentDesc'),
+    },
+    {
+      icon: FiRefreshCw,
+      title: t('features.easyReturns'),
+      description: t('features.easyReturnsDesc'),
+    },
+    {
+      icon: FiHeadphones,
+      title: t('features.support'),
+      description: t('features.supportDesc'),
+    },
+  ]
+
   return (
     <section className="py-20 bg-white/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

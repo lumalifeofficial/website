@@ -1,80 +1,97 @@
 import { FiHeart, FiShoppingCart, FiStar } from 'react-icons/fi'
-
-const products = [
-  {
-    id: 1,
-    name: 'Bear LED Night Lamp',
-    price: 29.99,
-    originalPrice: 49.99,
-    rating: 4.8,
-    reviews: 124,
-    badge: 'Best Seller',
-    emoji: '🧸💡',
-  },
-  {
-    id: 2,
-    name: 'Kawaii Mini Fan',
-    price: 19.99,
-    originalPrice: 34.99,
-    rating: 4.6,
-    reviews: 89,
-    badge: 'Hot',
-    emoji: '🌸🌀',
-  },
-  {
-    id: 3,
-    name: 'Cute Stirring Mug',
-    price: 24.99,
-    originalPrice: 39.99,
-    rating: 4.9,
-    reviews: 201,
-    badge: 'New',
-    emoji: '🐻☕',
-  },
-  {
-    id: 4,
-    name: 'Pastel Kitchen Mat',
-    price: 14.99,
-    originalPrice: 24.99,
-    rating: 4.7,
-    reviews: 156,
-    badge: 'Sale',
-    emoji: '🎀🍳',
-  },
-  {
-    id: 5,
-    name: 'Cloud Wireless Charger',
-    price: 34.99,
-    originalPrice: 54.99,
-    rating: 4.8,
-    reviews: 312,
-    badge: 'Popular',
-    emoji: '☁️⚡',
-  },
-  {
-    id: 6,
-    name: 'Bear Aroma Diffuser',
-    price: 39.99,
-    originalPrice: 59.99,
-    rating: 4.9,
-    reviews: 178,
-    badge: 'Trending',
-    emoji: '🐻🌿',
-  },
-]
+import { useLanguage } from '../i18n/LanguageContext'
 
 export default function Products() {
+  const { t } = useLanguage()
+
+  const phoneNumber = '60198688608'
+
+  const products = [
+    {
+      id: 1,
+      code: 'BL001',
+      name: t('products.bearLamp'),
+      price: 29.99,
+      originalPrice: 49.99,
+      rating: 4.8,
+      reviews: 124,
+      badge: t('products.bestSeller'),
+      emoji: '🧸💡',
+    },
+    {
+      id: 2,
+      code: 'MF002',
+      name: t('products.miniFan'),
+      price: 19.99,
+      originalPrice: 34.99,
+      rating: 4.6,
+      reviews: 89,
+      badge: t('products.hot'),
+      emoji: '🌸🌀',
+    },
+    {
+      id: 3,
+      code: 'SM003',
+      name: t('products.stirringMug'),
+      price: 24.99,
+      originalPrice: 39.99,
+      rating: 4.9,
+      reviews: 201,
+      badge: t('products.new'),
+      emoji: '🐻☕',
+    },
+    {
+      id: 4,
+      code: 'KM004',
+      name: t('products.kitchenMat'),
+      price: 14.99,
+      originalPrice: 24.99,
+      rating: 4.7,
+      reviews: 156,
+      badge: t('products.sale'),
+      emoji: '🎀🍳',
+    },
+    {
+      id: 5,
+      code: 'WC005',
+      name: t('products.wirelessCharger'),
+      price: 34.99,
+      originalPrice: 54.99,
+      rating: 4.8,
+      reviews: 312,
+      badge: t('products.popular'),
+      emoji: '☁️⚡',
+    },
+    {
+      id: 6,
+      code: 'AD006',
+      name: t('products.aromaDiffuser'),
+      price: 39.99,
+      originalPrice: 59.99,
+      rating: 4.9,
+      reviews: 178,
+      badge: t('products.trending'),
+      emoji: '🐻🌿',
+    },
+  ]
+
+  const handleOrder = (product) => {
+    const message = `Hi, I'm interested in ordering:\n\nItem Code: ${product.code}\nProduct: ${product.name}\nPrice: RM${product.price}`
+    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
+    window.open(url, '_blank')
+  }
+
   return (
     <section id="shop" className="py-20 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="text-ribbon-red font-semibold text-sm uppercase tracking-wider">Our Products</span>
+          <span className="text-ribbon-red font-semibold text-sm uppercase tracking-wider">{t('products.sectionLabel')}</span>
           <h2 className="text-3xl sm:text-4xl font-bold text-primary mt-2 mb-4">
-            Trending This Week 🎀
+            {t('products.title')}
           </h2>
           <p className="text-warm-brown/60 max-w-2xl mx-auto">
-            Adorable products that combine cuteness, quality, and functionality for your everyday happiness.
+            {t('products.description')}
           </p>
         </div>
 
@@ -105,7 +122,8 @@ export default function Products() {
 
               {/* Product Info */}
               <div className="p-5">
-                <h3 className="font-semibold text-primary text-lg mb-1">{product.name}</h3>
+                <span className="text-xs font-mono text-warm-brown/50 bg-cream px-2 py-0.5 rounded">{product.code}</span>
+                <h3 className="font-semibold text-primary text-lg mb-1 mt-1">{product.name}</h3>
                 <div className="flex items-center gap-1 mb-3">
                   <FiStar className="text-gold fill-current" size={14} />
                   <span className="text-sm text-warm-brown/60">
@@ -114,15 +132,16 @@ export default function Products() {
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="text-xl font-bold text-primary">${product.price}</span>
-                    <span className="text-sm text-warm-brown/40 line-through">${product.originalPrice}</span>
+                    <span className="text-xl font-bold text-primary">RM{product.price}</span>
+                    <span className="text-sm text-warm-brown/40 line-through">RM{product.originalPrice}</span>
                   </div>
                   <button
-                    className="flex items-center gap-2 bg-primary hover:bg-ribbon-red text-white px-4 py-2 rounded-full text-sm font-medium transition-colors"
-                    aria-label={`Add ${product.name} to cart`}
+                    onClick={() => handleOrder(product)}
+                    className="flex items-center gap-2 bg-[#25D366] hover:bg-[#1da851] text-white px-4 py-2 rounded-full text-sm font-medium transition-colors"
+                    aria-label={`Order ${product.name} via WhatsApp`}
                   >
                     <FiShoppingCart size={14} />
-                    Add
+                    {t('products.addToCart')}
                   </button>
                 </div>
               </div>
@@ -136,7 +155,7 @@ export default function Products() {
             href="#"
             className="inline-flex items-center gap-2 border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-full font-semibold transition-all"
           >
-            View All Products ♡
+            {t('products.viewAll')}
           </a>
         </div>
       </div>

@@ -1,6 +1,9 @@
 import { FiArrowRight, FiHeart } from 'react-icons/fi'
+import { useLanguage } from '../i18n/LanguageContext'
 
 export default function Hero() {
+  const { t } = useLanguage()
+
   return (
     <section id="home" className="relative min-h-screen flex items-center overflow-hidden bg-cream">
       {/* Soft decorative shapes */}
@@ -16,18 +19,18 @@ export default function Hero() {
           <div className="text-center lg:text-left">
             <div className="inline-flex items-center gap-2 bg-white/70 backdrop-blur-sm px-4 py-2 rounded-full mb-6 border border-peach/50">
               <FiHeart className="text-ribbon-red" size={14} />
-              <span className="text-primary/80 text-sm font-medium">Carry A Smile ♡</span>
+              <span className="text-primary/80 text-sm font-medium">{t('hero.badge')}</span>
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-primary leading-tight mb-6">
-             Cozy
+              {t('hero.titleLine1')}
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-ribbon-red to-gold">
-                Lifestyle Store
+                {t('hero.titleLine2')}
               </span>
             </h1>
 
             <p className="text-lg text-warm-brown/70 max-w-lg mb-8 leading-relaxed">
-              Discover adorable products that brighten your everyday. From kawaii accessories to home essentials — LUMA brings joy and smiles to your life.
+              {t('hero.description')}
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
@@ -35,14 +38,14 @@ export default function Hero() {
                 href="#shop"
                 className="inline-flex items-center justify-center gap-2 bg-ribbon-red hover:bg-ribbon-red/90 text-white px-8 py-4 rounded-full font-semibold transition-all hover:scale-105 shadow-lg shadow-ribbon-red/20"
               >
-                Shop Now
+                {t('hero.shopNow')}
                 <FiArrowRight />
               </a>
               <a
                 href="#collections"
                 className="inline-flex items-center justify-center gap-2 border-2 border-primary/20 hover:border-primary/40 text-primary px-8 py-4 rounded-full font-semibold transition-all hover:bg-white/50"
               >
-                View Collections
+                {t('hero.viewCollections')}
               </a>
             </div>
 
@@ -50,15 +53,15 @@ export default function Hero() {
             <div className="flex gap-8 mt-12 justify-center lg:justify-start">
               <div>
                 <p className="text-3xl font-bold text-primary">50K+</p>
-                <p className="text-warm-brown/50 text-sm">Happy Customers</p>
+                <p className="text-warm-brown/50 text-sm">{t('hero.happyCustomers')}</p>
               </div>
               <div>
                 <p className="text-3xl font-bold text-primary">200+</p>
-                <p className="text-warm-brown/50 text-sm">Products</p>
+                <p className="text-warm-brown/50 text-sm">{t('hero.products')}</p>
               </div>
               <div>
                 <p className="text-3xl font-bold text-primary">4.9★</p>
-                <p className="text-warm-brown/50 text-sm">Rating</p>
+                <p className="text-warm-brown/50 text-sm">{t('hero.rating')}</p>
               </div>
             </div>
           </div>

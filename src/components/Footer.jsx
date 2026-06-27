@@ -1,7 +1,10 @@
 import { FaInstagram, FaFacebookF, FaTiktok, FaYoutube, FaTwitter } from 'react-icons/fa'
 import { FiMapPin, FiMail, FiPhone, FiHeart } from 'react-icons/fi'
+import { useLanguage } from '../i18n/LanguageContext'
 
 export default function Footer() {
+  const { t } = useLanguage()
+
   return (
     <footer className="bg-primary text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -12,7 +15,7 @@ export default function Footer() {
               <img src="/image.png" alt="Luma" className="h-12 w-auto brightness-110" />
             </div>
             <p className="text-gray-400 leading-relaxed text-sm">
-              Carry a smile ♡ Cute, cozy, and quality lifestyle products curated to bring joy to your everyday life.
+              {t('footer.brandDescription')}
             </p>
             {/* Social Icons */}
             <div className="flex gap-3 mt-6">
@@ -36,31 +39,31 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">Quick Links</h3>
+            <h3 className="font-semibold text-lg mb-4">{t('footer.quickLinks')}</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">Home</a></li>
-              <li><a href="#shop" className="text-gray-400 hover:text-peach transition-colors text-sm">Shop</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">New Arrivals</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">Best Sellers</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">Sale</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.home')}</a></li>
+              <li><a href="#shop" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.shop')}</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.newArrivals')}</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.bestSellers')}</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.sale')}</a></li>
             </ul>
           </div>
 
           {/* Customer Service */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">Customer Service</h3>
+            <h3 className="font-semibold text-lg mb-4">{t('footer.customerService')}</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">Track Order</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">Shipping Policy</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">Returns & Exchanges</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">FAQ</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">Privacy Policy</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.trackOrder')}</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.shippingPolicy')}</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.returnsExchanges')}</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.faq')}</a></li>
+              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.privacyPolicy')}</a></li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h3 className="font-semibold text-lg mb-4">Contact Us</h3>
+            <h3 className="font-semibold text-lg mb-4">{t('footer.contactUs')}</h3>
             <ul className="space-y-4">
               <li className="flex items-start gap-3">
                 <FiMapPin className="text-peach mt-0.5 flex-shrink-0" size={16} />
@@ -85,10 +88,10 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-white/10 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-gray-400 text-sm flex items-center gap-1">
-            © 2026 LUMA Official. Made with <FiHeart className="text-ribbon-red" size={12} /> Carry A Smile
+            {t('footer.copyright')} <FiHeart className="text-ribbon-red" size={12} /> {t('footer.carryASmile')}
           </p>
           <div className="flex items-center gap-4">
-            <span className="text-gray-500 text-xs">We accept:</span>
+            <span className="text-gray-500 text-xs">{t('footer.weAccept')}</span>
             <div className="flex gap-2 text-lg">
               <span title="Visa">💳</span>
               <span title="Online Banking">🏦</span>

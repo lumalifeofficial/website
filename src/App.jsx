@@ -1,3 +1,4 @@
+import { LanguageProvider } from './i18n/LanguageContext'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Features from './components/Features'
@@ -6,19 +7,23 @@ import Testimonials from './components/Testimonials'
 import SocialMedia from './components/SocialMedia'
 import Newsletter from './components/Newsletter'
 import Footer from './components/Footer'
+import WhatsAppButton from './components/WhatsAppButton'
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar />
-      <Hero />
-      <Features />
-      <Products />
-      <Testimonials />
-      <SocialMedia />
-      <Newsletter />
-      <Footer />
-    </div>
+    <LanguageProvider>
+      <div className="min-h-screen bg-white">
+        <Navbar />
+        <Hero />
+        <Features />
+        <Products />
+        <Testimonials />
+        <SocialMedia />
+        <Newsletter />
+        <Footer />
+        <WhatsAppButton />
+      </div>
+    </LanguageProvider>
   )
 }
 

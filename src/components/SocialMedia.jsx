@@ -1,65 +1,68 @@
 import { FaInstagram, FaFacebookF, FaTiktok, FaYoutube, FaTwitter } from 'react-icons/fa'
-
-const socialPlatforms = [
-  {
-    name: 'Instagram',
-    icon: FaInstagram,
-    handle: '@lumalifeofficial',
-    followers: '125K',
-    color: 'from-purple-400 via-pink-400 to-orange-300',
-    url: 'https://instagram.com/lumalifeofficial',
-    description: 'Daily cuteness & product showcases',
-  },
-  {
-    name: 'Facebook',
-    icon: FaFacebookF,
-    handle: 'LumaLife Official',
-    followers: '89K',
-    color: 'from-blue-400 to-blue-500',
-    url: 'https://facebook.com/lumalifeofficial',
-    description: 'Community deals & live events',
-  },
-  {
-    name: 'TikTok',
-    icon: FaTiktok,
-    handle: '@lumalifeofficial',
-    followers: '250K',
-    color: 'from-gray-700 to-gray-800',
-    url: 'https://tiktok.com/@lumalifeofficial',
-    description: 'Viral unboxings & kawaii hauls',
-  },
-  {
-    name: 'YouTube',
-    icon: FaYoutube,
-    handle: 'LumaLife Official',
-    followers: '45K',
-    color: 'from-red-400 to-red-500',
-    url: 'https://youtube.com/@lumalifeofficial',
-    description: 'Reviews, tutorials & vlogs',
-  },
-  {
-    name: 'Twitter / X',
-    icon: FaTwitter,
-    handle: '@lumalifeofficial',
-    followers: '32K',
-    color: 'from-gray-600 to-gray-700',
-    url: 'https://x.com/lumalifeofficial',
-    description: 'Updates, launches & giveaways',
-  },
-]
+import { useLanguage } from '../i18n/LanguageContext'
 
 export default function SocialMedia() {
+  const { t } = useLanguage()
+
+  const socialPlatforms = [
+    {
+      name: 'Instagram',
+      icon: FaInstagram,
+      handle: '@lumalifeofficial',
+      followers: '125K',
+      color: 'from-purple-400 via-pink-400 to-orange-300',
+      url: 'https://instagram.com/lumalifeofficial',
+      description: t('social.instagram'),
+    },
+    {
+      name: 'Facebook',
+      icon: FaFacebookF,
+      handle: 'LumaLife Official',
+      followers: '89K',
+      color: 'from-blue-400 to-blue-500',
+      url: 'https://facebook.com/lumalifeofficial',
+      description: t('social.facebook'),
+    },
+    {
+      name: 'TikTok',
+      icon: FaTiktok,
+      handle: '@lumalifeofficial',
+      followers: '250K',
+      color: 'from-gray-700 to-gray-800',
+      url: 'https://tiktok.com/@lumalifeofficial',
+      description: t('social.tiktok'),
+    },
+    {
+      name: 'YouTube',
+      icon: FaYoutube,
+      handle: 'LumaLife Official',
+      followers: '45K',
+      color: 'from-red-400 to-red-500',
+      url: 'https://youtube.com/@lumalifeofficial',
+      description: t('social.youtube'),
+    },
+    {
+      name: 'Twitter / X',
+      icon: FaTwitter,
+      handle: '@lumalifeofficial',
+      followers: '32K',
+      color: 'from-gray-600 to-gray-700',
+      url: 'https://x.com/lumalifeofficial',
+      description: t('social.twitter'),
+    },
+  ]
+
   return (
     <section id="contact" className="py-20 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <span className="text-ribbon-red font-semibold text-sm uppercase tracking-wider">Stay Connected</span>
+          <span className="text-ribbon-red font-semibold text-sm uppercase tracking-wider">{t('social.sectionLabel')}</span>
           <h2 className="text-3xl sm:text-4xl font-bold text-primary mt-2 mb-4">
-            Follow Us ♡
+            {t('social.title')}
           </h2>
           <p className="text-warm-brown/60 max-w-2xl mx-auto">
-            Join our adorable community for exclusive deals, sneak peeks, behind-the-scenes content, and daily smiles.
+            {t('social.description')}
           </p>
         </div>
 
@@ -81,7 +84,7 @@ export default function SocialMedia() {
                 <div className="flex items-center justify-between mb-4">
                   <platform.icon size={32} />
                   <span className="text-white/80 text-sm font-medium bg-white/20 px-3 py-1 rounded-full">
-                    {platform.followers} Followers
+                    {platform.followers} {t('social.followers')}
                   </span>
                 </div>
 
@@ -91,7 +94,7 @@ export default function SocialMedia() {
 
                 {/* Arrow */}
                 <div className="mt-4 flex items-center gap-2 text-white/80 group-hover:text-white transition-colors">
-                  <span className="text-sm font-medium">Follow Us</span>
+                  <span className="text-sm font-medium">{t('social.followUs')}</span>
                   <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </div>
               </div>
@@ -112,7 +115,7 @@ export default function SocialMedia() {
               <span className="w-10 h-10 bg-peach rounded-full flex items-center justify-center text-lg border-2 border-white">✨</span>
             </div>
             <p className="text-primary font-medium">
-              Join <span className="text-ribbon-red font-bold">500K+</span> followers across all platforms
+              {t('social.joinCommunity')} <span className="text-ribbon-red font-bold">500K+</span> {t('social.communityText')}
             </p>
           </div>
         </div>
