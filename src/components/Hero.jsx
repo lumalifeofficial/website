@@ -20,7 +20,7 @@ export default function Hero() {
             </div>
 
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold text-primary leading-tight mb-6">
-              Cute & Cozy
+             Cozy
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-ribbon-red to-gold">
                 Lifestyle Store
               </span>
