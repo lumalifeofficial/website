@@ -12,15 +12,13 @@ const translations = {
     // Hero
     hero: {
       badge: 'Carry A Smile ♡',
-      titleLine1: 'Cozy',
+      titleLine1: 'Cute & Cozy',
       titleLine2: 'Lifestyle Store',
       description:
         'Discover adorable products that brighten your everyday. From kawaii accessories to home essentials — LUMA brings joy and smiles to your life.',
       shopNow: 'Shop Now',
       viewCollections: 'View Collections',
-      happyCustomers: 'Happy Customers',
-      products: 'Products',
-      rating: 'Rating',
+
     },
 
     // Features
@@ -82,10 +80,7 @@ const translations = {
       title: 'Follow Us ♡',
       description:
         'Join our adorable community for exclusive deals, sneak peeks, behind-the-scenes content, and daily smiles.',
-      followers: 'Followers',
       followUs: 'Follow Us',
-      joinCommunity: 'Join',
-      communityText: 'followers across all platforms',
       instagram: 'Daily cuteness & product showcases',
       facebook: 'Community deals & live events',
       tiktok: 'Viral unboxings & kawaii hauls',
@@ -95,13 +90,12 @@ const translations = {
 
     // Newsletter
     newsletter: {
-      badge: 'Get 15% off your first order ♡',
+
       title: 'Join the LUMA Family 🐻',
       description:
-        'Be the first to know about new arrivals, exclusive offers, and cute limited edition drops.',
-      placeholder: 'Enter your email',
-      subscribe: 'Subscribe ♡',
-      privacy: 'No spam, unsubscribe at any time. We respect your privacy.',
+        'Have questions or want to know more? Reach out to us directly on WhatsApp!',
+      contactWhatsApp: 'Chat on WhatsApp ♡',
+      privacy: 'We typically reply within minutes. Feel free to message us anytime!',
     },
 
     // Shop Page
@@ -186,15 +180,13 @@ const translations = {
     // Hero
     hero: {
       badge: '带上微笑 ♡',
-      titleLine1: '温馨',
+      titleLine1: '可爱又温馨',
       titleLine2: '生活方式商店',
       description:
         '发现可爱的产品，点亮你的每一天。从可爱的配件到家居必需品——LUMA 为你的生活带来欢乐和笑容。',
       shopNow: '立即购物',
       viewCollections: '浏览系列',
-      happyCustomers: '满意顾客',
-      products: '产品',
-      rating: '评分',
+
     },
 
     // Features
@@ -250,10 +242,7 @@ const translations = {
       title: '关注我们 ♡',
       description:
         '加入我们可爱的社区，获取独家优惠、抢先看、幕后内容和每日微笑。',
-      followers: '粉丝',
       followUs: '关注我们',
-      joinCommunity: '加入',
-      communityText: '全平台粉丝',
       instagram: '每日可爱内容和产品展示',
       facebook: '社区优惠和直播活动',
       tiktok: '热门开箱和可爱好物',
@@ -263,12 +252,11 @@ const translations = {
 
     // Newsletter
     newsletter: {
-      badge: '首单享85折优惠 ♡',
+
       title: '加入LUMA大家庭 🐻',
-      description: '第一时间了解新品、独家优惠和可爱限量款。',
-      placeholder: '输入您的邮箱',
-      subscribe: '订阅 ♡',
-      privacy: '无垃圾邮件，随时可以取消订阅。我们尊重您的隐私。',
+      description: '有问题或想了解更多？直接通过WhatsApp联系我们！',
+      contactWhatsApp: '通过WhatsApp联系 ♡',
+      privacy: '我们通常在几分钟内回复。随时欢迎留言！',
     },
 
     // Shop Page

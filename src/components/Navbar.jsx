@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { FiMenu, FiX, FiShoppingCart, FiSearch, FiHeart } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
 import LanguageSelector from './LanguageSelector'
@@ -20,7 +21,7 @@ export default function Navbar() {
           <div className="hidden md:flex items-center space-x-8">
             <a href="#home" className="text-primary hover:text-ribbon-red transition-colors font-medium">{t('nav.home')}</a>
             <a href="#shop" className="text-primary hover:text-ribbon-red transition-colors font-medium">{t('nav.shop')}</a>
-            <a href="#collections" className="text-primary hover:text-ribbon-red transition-colors font-medium">{t('nav.collections')}</a>
+            <Link to="/products" className="text-primary hover:text-ribbon-red transition-colors font-medium">{t('nav.collections')}</Link>
             <a href="#about" className="text-primary hover:text-ribbon-red transition-colors font-medium">{t('nav.about')}</a>
             <a href="#contact" className="text-primary hover:text-ribbon-red transition-colors font-medium">{t('nav.contact')}</a>
           </div>
@@ -36,9 +37,6 @@ export default function Navbar() {
             </button>
             <button className="relative p-2 text-primary hover:text-ribbon-red transition-colors" aria-label="Cart">
               <FiShoppingCart size={20} />
-              <span className="absolute -top-1 -right-1 bg-ribbon-red text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
-                3
-              </span>
             </button>
           </div>
 
@@ -59,7 +57,7 @@ export default function Navbar() {
           <div className="px-4 py-4 space-y-3">
             <a href="#home" className="block text-primary hover:text-ribbon-red font-medium py-2">{t('nav.home')}</a>
             <a href="#shop" className="block text-primary hover:text-ribbon-red font-medium py-2">{t('nav.shop')}</a>
-            <a href="#collections" className="block text-primary hover:text-ribbon-red font-medium py-2">{t('nav.collections')}</a>
+            <Link to="/products" className="block text-primary hover:text-ribbon-red font-medium py-2">{t('nav.collections')}</Link>
             <a href="#about" className="block text-primary hover:text-ribbon-red font-medium py-2">{t('nav.about')}</a>
             <a href="#contact" className="block text-primary hover:text-ribbon-red font-medium py-2">{t('nav.contact')}</a>
             <div className="pt-3 border-t border-peach/50">

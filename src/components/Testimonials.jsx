@@ -1,8 +1,11 @@
 import { FiStar, FiHeart } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
+import { useScrollAnimation, useStaggerAnimation } from '../hooks/useScrollAnimation'
 
 export default function Testimonials() {
   const { t } = useLanguage()
+  const [headerRef, headerVisible] = useScrollAnimation({ threshold: 0.3 })
+  const [cardsRef, cardsVisible] = useStaggerAnimation({ threshold: 0.1 })
 
   const testimonials = [
     {
@@ -28,11 +31,17 @@ export default function Testimonials() {
     },
   ]
 
+  // Alternate animation directions per card
+  const cardAnimations = ['scroll-fade-left', 'scroll-fade-up', 'scroll-fade-right']
+
   return (
-    <section className="py-20 bg-white/50">
+    <section className="py-20 bg-white/50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
+        {/* Header - blur in */}
+        <div
+          ref={headerRef}
+          className={`text-center mb-16 scroll-blur-in ${headerVisible ? 'visible' : ''}`}
+        >
           <span className="text-ribbon-red font-semibold text-sm uppercase tracking-wider">{t('testimonials.sectionLabel')}</span>
           <h2 className="text-3xl sm:text-4xl font-bold text-primary mt-2 mb-4">
             {t('testimonials.title')}
@@ -42,12 +51,17 @@ export default function Testimonials() {
           </p>
         </div>
 
-        {/* Testimonial Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Testimonial Cards - each from different direction */}
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="bg-cream p-8 rounded-2xl border border-peach/30 hover:shadow-md hover:shadow-peach/20 transition-all"
+              className={`bg-cream p-8 rounded-2xl border border-peach/30 hover:shadow-lg hover:shadow-peach/20 hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ${cardAnimations[index]} ${
+                cardsVisible ? 'visible' : ''
+              }`}
+              style={{
+                transitionDelay: cardsVisible ? `${index * 150}ms` : '0ms',
+              }}
             >
               {/* Stars */}
               <div className="flex gap-1 mb-4">

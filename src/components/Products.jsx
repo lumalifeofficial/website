@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom'
 import { FiHeart, FiShoppingCart, FiStar } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
+import { useScrollAnimation, useStaggerAnimation } from '../hooks/useScrollAnimation'
 
 export default function Products() {
   const { t } = useLanguage()
+  const [headerRef, headerVisible] = useScrollAnimation({ threshold: 0.3 })
+  const [gridRef, gridVisible] = useStaggerAnimation({ threshold: 0.05 })
+  const [btnRef, btnVisible] = useScrollAnimation({ threshold: 0.5 })
 
   const phoneNumber = '60198688608'
 
@@ -85,8 +89,11 @@ export default function Products() {
   return (
     <section id="shop" className="py-20 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
+        {/* Header - flip in from top */}
+        <div
+          ref={headerRef}
+          className={`text-center mb-16 scroll-flip-up ${headerVisible ? 'visible' : ''}`}
+        >
           <span className="text-ribbon-red font-semibold text-sm uppercase tracking-wider">{t('products.sectionLabel')}</span>
           <h2 className="text-3xl sm:text-4xl font-bold text-primary mt-2 mb-4">
             {t('products.title')}
@@ -96,16 +103,21 @@ export default function Products() {
           </p>
         </div>
 
-        {/* Product Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product) => (
+        {/* Product Grid - staggered rotate-in */}
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {products.map((product, index) => (
             <div
               key={product.id}
-              className="group bg-white rounded-2xl border border-peach/30 overflow-hidden hover:shadow-xl hover:shadow-peach/20 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:border-ribbon-red/30"
+              className={`group bg-white rounded-2xl border border-peach/30 overflow-hidden hover:shadow-xl hover:shadow-peach/20 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:border-ribbon-red/30 scroll-rotate-in ${
+                gridVisible ? 'visible' : ''
+              }`}
+              style={{
+                transitionDelay: gridVisible ? `${index * 120}ms` : '0ms',
+              }}
             >
               {/* Product Image Area */}
               <div className="relative bg-gradient-to-br from-cream to-soft-pink/50 p-8 flex items-center justify-center h-56">
-                <span className="text-6xl group-hover:scale-125 group-hover:rotate-3 transition-transform duration-500 ease-out">
+                <span className="text-6xl group-hover:scale-125 group-hover:rotate-6 transition-transform duration-500 ease-out">
                   {product.emoji}
                 </span>
                 {/* Badge */}
@@ -150,11 +162,14 @@ export default function Products() {
           ))}
         </div>
 
-        {/* View All Button */}
-        <div className="text-center mt-12">
+        {/* View All Button - pop in */}
+        <div
+          ref={btnRef}
+          className={`text-center mt-12 scroll-pop-in ${btnVisible ? 'visible' : ''}`}
+        >
           <Link
             to="/products"
-            className="inline-flex items-center gap-2 border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-full font-semibold transition-all"
+            className="inline-flex items-center gap-2 border-2 border-primary text-primary hover:bg-primary hover:text-white px-8 py-3 rounded-full font-semibold transition-all hover:scale-105"
           >
             {t('products.viewAll')}
           </Link>

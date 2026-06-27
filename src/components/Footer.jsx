@@ -1,13 +1,18 @@
 import { FaInstagram, FaFacebookF, FaTiktok, FaYoutube, FaTwitter } from 'react-icons/fa'
 import { FiMapPin, FiMail, FiPhone, FiHeart } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
+import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
 export default function Footer() {
   const { t } = useLanguage()
+  const [footerRef, footerVisible] = useScrollAnimation({ threshold: 0.1 })
 
   return (
     <footer className="bg-primary text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div
+        ref={footerRef}
+        className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 scroll-blur-in ${footerVisible ? 'visible' : ''}`}
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand */}
           <div>
@@ -22,7 +27,7 @@ export default function Footer() {
               <a href="https://instagram.com/lumalifeofficial" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white/10 hover:bg-ribbon-red rounded-full flex items-center justify-center transition-colors" aria-label="Instagram">
                 <FaInstagram size={16} />
               </a>
-              <a href="https://facebook.com/lumalifeofficial" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white/10 hover:bg-ribbon-red rounded-full flex items-center justify-center transition-colors" aria-label="Facebook">
+              <a href="https://www.facebook.com/lumalifecpy" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white/10 hover:bg-ribbon-red rounded-full flex items-center justify-center transition-colors" aria-label="Facebook">
                 <FaFacebookF size={16} />
               </a>
               <a href="https://tiktok.com/@lumalifeofficial" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white/10 hover:bg-ribbon-red rounded-full flex items-center justify-center transition-colors" aria-label="TikTok">
@@ -71,14 +76,14 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-3">
                 <FiMail className="text-peach flex-shrink-0" size={16} />
-                <a href="mailto:hello@lumalifeofficial.com" className="text-gray-400 hover:text-peach transition-colors text-sm">
-                  hello@lumalifeofficial.com
+                <a href="mailto:lumalifeofficial@gmail.com" className="text-gray-400 hover:text-peach transition-colors text-sm">
+                  lumalifeofficial@gmail.com
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <FiPhone className="text-peach flex-shrink-0" size={16} />
-                <a href="tel:+1234567890" className="text-gray-400 hover:text-peach transition-colors text-sm">
-                  +60 12-345-6789
+                <a href="tel:+60198688608" className="text-gray-400 hover:text-peach transition-colors text-sm">
+                  019-8688608
                 </a>
               </li>
             </ul>
