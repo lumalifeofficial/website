@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FiMenu, FiX, FiShoppingCart, FiSearch, FiHeart } from 'react-icons/fi'
+import { FiMenu, FiX, FiShoppingCart, FiHeart } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
 import LanguageSelector from './LanguageSelector'
 
@@ -14,30 +14,27 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center gap-2">
-            <img src="/image.png" alt="Luma" className="h-10 w-auto" />
+            <img src="/logoHeaader.jpeg" alt="Luma" className="h-20 w-20 object-cover rounded-full" />
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#home" className="text-primary hover:text-ribbon-red transition-colors font-medium">{t('nav.home')}</a>
-            <a href="#shop" className="text-primary hover:text-ribbon-red transition-colors font-medium">{t('nav.shop')}</a>
-            <Link to="/products" className="text-primary hover:text-ribbon-red transition-colors font-medium">{t('nav.collections')}</Link>
-            <a href="#about" className="text-primary hover:text-ribbon-red transition-colors font-medium">{t('nav.about')}</a>
-            <a href="#contact" className="text-primary hover:text-ribbon-red transition-colors font-medium">{t('nav.contact')}</a>
+            <Link to="/" className="text-primary hover:text-ribbon-red transition-colors font-medium">{t('nav.home')}</Link>
+            <Link to="/products" className="text-primary hover:text-ribbon-red transition-colors font-medium">{t('nav.shop')}</Link>
+            <Link to="/about" className="text-primary hover:text-ribbon-red transition-colors font-medium">{t('nav.about')}</Link>
+            <Link to="/faq" className="text-primary hover:text-ribbon-red transition-colors font-medium">{t('nav.faq')}</Link>
+            <Link to="/contact" className="text-primary hover:text-ribbon-red transition-colors font-medium">{t('nav.contact')}</Link>
           </div>
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-3">
             <LanguageSelector />
-            <button className="p-2 text-primary hover:text-ribbon-red transition-colors" aria-label="Search">
-              <FiSearch size={20} />
-            </button>
-            <button className="p-2 text-primary hover:text-ribbon-red transition-colors" aria-label="Wishlist">
+            <Link to="/wishlist" className="p-2 text-primary hover:text-ribbon-red transition-colors" aria-label="Wishlist">
               <FiHeart size={20} />
-            </button>
-            <button className="relative p-2 text-primary hover:text-ribbon-red transition-colors" aria-label="Cart">
+            </Link>
+            <Link to="/cart" className="relative p-2 text-primary hover:text-ribbon-red transition-colors" aria-label="Cart">
               <FiShoppingCart size={20} />
-            </button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -55,11 +52,13 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden bg-cream border-t border-peach/50">
           <div className="px-4 py-4 space-y-3">
-            <a href="#home" className="block text-primary hover:text-ribbon-red font-medium py-2">{t('nav.home')}</a>
-            <a href="#shop" className="block text-primary hover:text-ribbon-red font-medium py-2">{t('nav.shop')}</a>
-            <Link to="/products" className="block text-primary hover:text-ribbon-red font-medium py-2">{t('nav.collections')}</Link>
-            <a href="#about" className="block text-primary hover:text-ribbon-red font-medium py-2">{t('nav.about')}</a>
-            <a href="#contact" className="block text-primary hover:text-ribbon-red font-medium py-2">{t('nav.contact')}</a>
+            <Link to="/" onClick={() => setIsOpen(false)} className="block text-primary hover:text-ribbon-red font-medium py-2">{t('nav.home')}</Link>
+            <Link to="/products" onClick={() => setIsOpen(false)} className="block text-primary hover:text-ribbon-red font-medium py-2">{t('nav.shop')}</Link>
+            <Link to="/about" onClick={() => setIsOpen(false)} className="block text-primary hover:text-ribbon-red font-medium py-2">{t('nav.about')}</Link>
+            <Link to="/faq" onClick={() => setIsOpen(false)} className="block text-primary hover:text-ribbon-red font-medium py-2">{t('nav.faq')}</Link>
+            <Link to="/contact" onClick={() => setIsOpen(false)} className="block text-primary hover:text-ribbon-red font-medium py-2">{t('nav.contact')}</Link>
+            <Link to="/cart" onClick={() => setIsOpen(false)} className="block text-primary hover:text-ribbon-red font-medium py-2">{t('nav.cart')}</Link>
+            <Link to="/wishlist" onClick={() => setIsOpen(false)} className="block text-primary hover:text-ribbon-red font-medium py-2">{t('nav.wishlist')}</Link>
             <div className="pt-3 border-t border-peach/50">
               <LanguageSelector />
             </div>

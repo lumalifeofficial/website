@@ -1,4 +1,6 @@
-import { FaInstagram, FaFacebookF, FaTiktok, FaYoutube, FaTwitter } from 'react-icons/fa'
+import { FaInstagram, FaFacebookF, FaTiktok } from 'react-icons/fa'
+import { SiXiaohongshu } from 'react-icons/si'
+import { FiMail } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation, useStaggerAnimation } from '../hooks/useScrollAnimation'
 
@@ -13,40 +15,40 @@ export default function SocialMedia() {
       icon: FaInstagram,
       handle: '@lumalifeofficial',
       color: 'from-purple-400 via-pink-400 to-orange-300',
-      url: 'https://instagram.com/lumalifeofficial',
+      url: 'https://www.instagram.com/lumalifeofficial?igsh=MXVydGF4aHMwc3N3ZA==',
       description: t('social.instagram'),
     },
     {
       name: 'Facebook',
       icon: FaFacebookF,
-      handle: 'LUMA LIFE CPY',
+      handle: 'LUMA LIFE',
       color: 'from-blue-400 to-blue-500',
-      url: 'https://www.facebook.com/lumalifecpy',
+      url: 'https://www.facebook.com/share/1RsKmqqNyk/',
       description: t('social.facebook'),
     },
     {
       name: 'TikTok',
       icon: FaTiktok,
-      handle: '@lumalifeofficial',
+      handle: '@luma.life.officia',
       color: 'from-gray-700 to-gray-800',
-      url: 'https://tiktok.com/@lumalifeofficial',
+      url: 'https://www.tiktok.com/@luma.life.officia?_r=1&_t=ZS-97YpaL8QADs',
       description: t('social.tiktok'),
     },
     {
-      name: 'YouTube',
-      icon: FaYoutube,
-      handle: 'LumaLife Official',
+      name: '小红书 (XHS)',
+      icon: SiXiaohongshu,
+      handle: 'LUMA LIFE',
       color: 'from-red-400 to-red-500',
-      url: 'https://youtube.com/@lumalifeofficial',
-      description: t('social.youtube'),
+      url: 'https://xhslink.com/m/2lWi95LPEFm',
+      description: t('social.xhs') || 'Follow us on Xiaohongshu',
     },
     {
-      name: 'Twitter / X',
-      icon: FaTwitter,
-      handle: '@lumalifeofficial',
-      color: 'from-gray-600 to-gray-700',
-      url: 'https://x.com/lumalifeofficial',
-      description: t('social.twitter'),
+      name: 'Gmail',
+      icon: FiMail,
+      handle: 'LUMALIFEOFFICIAL@GMAIL.COM',
+      color: 'from-red-500 to-orange-400',
+      url: 'mailto:LUMALIFEOFFICIAL@GMAIL.COM',
+      description: t('social.email') || 'Email us',
     },
   ]
 

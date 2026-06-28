@@ -1,4 +1,4 @@
-import { FiTruck, FiShield, FiRefreshCw, FiHeadphones } from 'react-icons/fi'
+import { FiTruck, FiShield, FiHeadphones } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 
@@ -17,11 +17,7 @@ export default function Features() {
       title: t('features.securePayment'),
       description: t('features.securePaymentDesc'),
     },
-    {
-      icon: FiRefreshCw,
-      title: t('features.easyReturns'),
-      description: t('features.easyReturnsDesc'),
-    },
+
     {
       icon: FiHeadphones,
       title: t('features.support'),

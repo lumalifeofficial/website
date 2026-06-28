@@ -1,4 +1,6 @@
-import { FaInstagram, FaFacebookF, FaTiktok, FaYoutube, FaTwitter } from 'react-icons/fa'
+import { Link } from 'react-router-dom'
+import { FaInstagram, FaFacebookF, FaTiktok } from 'react-icons/fa'
+import { SiXiaohongshu } from 'react-icons/si'
 import { FiMapPin, FiMail, FiPhone, FiHeart } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
@@ -24,20 +26,17 @@ export default function Footer() {
             </p>
             {/* Social Icons */}
             <div className="flex gap-3 mt-6">
-              <a href="https://instagram.com/lumalifeofficial" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white/10 hover:bg-ribbon-red rounded-full flex items-center justify-center transition-colors" aria-label="Instagram">
+              <a href="https://www.instagram.com/lumalifeofficial?igsh=MXVydGF4aHMwc3N3ZA==" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white/10 hover:bg-ribbon-red rounded-full flex items-center justify-center transition-colors" aria-label="Instagram">
                 <FaInstagram size={16} />
               </a>
-              <a href="https://www.facebook.com/lumalifecpy" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white/10 hover:bg-ribbon-red rounded-full flex items-center justify-center transition-colors" aria-label="Facebook">
+              <a href="https://www.facebook.com/share/1RsKmqqNyk/" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white/10 hover:bg-ribbon-red rounded-full flex items-center justify-center transition-colors" aria-label="Facebook">
                 <FaFacebookF size={16} />
               </a>
-              <a href="https://tiktok.com/@lumalifeofficial" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white/10 hover:bg-ribbon-red rounded-full flex items-center justify-center transition-colors" aria-label="TikTok">
+              <a href="https://www.tiktok.com/@luma.life.officia?_r=1&_t=ZS-97YpaL8QADs" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white/10 hover:bg-ribbon-red rounded-full flex items-center justify-center transition-colors" aria-label="TikTok">
                 <FaTiktok size={16} />
               </a>
-              <a href="https://youtube.com/@lumalifeofficial" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white/10 hover:bg-ribbon-red rounded-full flex items-center justify-center transition-colors" aria-label="YouTube">
-                <FaYoutube size={16} />
-              </a>
-              <a href="https://x.com/lumalifeofficial" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white/10 hover:bg-ribbon-red rounded-full flex items-center justify-center transition-colors" aria-label="Twitter">
-                <FaTwitter size={16} />
+              <a href="https://xhslink.com/m/2lWi95LPEFm" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white/10 hover:bg-ribbon-red rounded-full flex items-center justify-center transition-colors" aria-label="Xiaohongshu">
+                <SiXiaohongshu size={16} />
               </a>
             </div>
           </div>
@@ -46,11 +45,11 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-lg mb-4">{t('footer.quickLinks')}</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.home')}</a></li>
-              <li><a href="#shop" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.shop')}</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.newArrivals')}</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.bestSellers')}</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.sale')}</a></li>
+              <li><Link to="/" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.home')}</Link></li>
+              <li><Link to="/products" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.shop')}</Link></li>
+              <li><Link to="/products" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.newArrivals')}</Link></li>
+              <li><Link to="/products" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.bestSellers')}</Link></li>
+              <li><Link to="/about" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.sale')}</Link></li>
             </ul>
           </div>
 
@@ -58,11 +57,11 @@ export default function Footer() {
           <div>
             <h3 className="font-semibold text-lg mb-4">{t('footer.customerService')}</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.trackOrder')}</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.shippingPolicy')}</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.returnsExchanges')}</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.faq')}</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.privacyPolicy')}</a></li>
+              <li><a href="https://www.tracking.my/cn/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.trackOrder')}</a></li>
+              <li><Link to="/faq" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.shippingPolicy')}</Link></li>
+              <li><Link to="/return-policy" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.returnsExchanges')}</Link></li>
+              <li><Link to="/faq" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.faq')}</Link></li>
+              <li><Link to="/contact" className="text-gray-400 hover:text-peach transition-colors text-sm">{t('footer.privacyPolicy')}</Link></li>
             </ul>
           </div>
 

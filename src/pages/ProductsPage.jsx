@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { FiHeart, FiShoppingCart, FiStar, FiGrid, FiList, FiChevronLeft, FiFilter, FiX } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
@@ -15,6 +15,22 @@ export default function ProductsPage() {
   const [sortBy, setSortBy] = useState('popular')
   const [viewMode, setViewMode] = useState('grid')
   const [showMobileFilter, setShowMobileFilter] = useState(false)
+
+  // Cart & Wishlist counts
+  const [cartCount, setCartCount] = useState(0)
+  const [wishlistCount, setWishlistCount] = useState(0)
+
+  useEffect(() => {
+    const updateCounts = () => {
+      const cart = JSON.parse(localStorage.getItem('luma-cart') || '[]')
+      const wishlist = JSON.parse(localStorage.getItem('luma-wishlist') || '[]')
+      setCartCount(cart.reduce((sum, item) => sum + item.quantity, 0))
+      setWishlistCount(wishlist.length)
+    }
+    updateCounts()
+    window.addEventListener('storage', updateCounts)
+    return () => window.removeEventListener('storage', updateCounts)
+  }, [])
 
   const categories = [
     { key: 'all', label: t('shopPage.allCategories') },
@@ -73,6 +89,18 @@ export default function ProductsPage() {
     const message = `Hi, I'm interested in ordering:\n\nItem Code: ${product.code}\nProduct: ${name}\nPrice: RM${product.price}`
     const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
     window.open(url, '_blank')
+  }
+
+  const handleAddToCart = (product) => {
+    const cart = JSON.parse(localStorage.getItem('luma-cart') || '[]')
+    const existing = cart.find((item) => item.id === product.id)
+    if (existing) {
+      existing.quantity += 1
+    } else {
+      cart.push({ id: product.id, quantity: 1 })
+    }
+    localStorage.setItem('luma-cart', JSON.stringify(cart))
+    setCartCount(cart.reduce((sum, item) => sum + item.quantity, 0))
   }
 
   const clearFilters = () => {
@@ -211,7 +239,24 @@ export default function ProductsPage() {
               </Link>
             </div>
             <h1 className="font-bold text-primary text-lg">{t('shopPage.title')}</h1>
-            <div className="w-24" />
+            <div className="flex items-center gap-3">
+              <Link to="/wishlist" className="relative p-2 text-primary hover:text-ribbon-red transition-colors" aria-label="Wishlist">
+                <FiHeart size={20} />
+                {wishlistCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-ribbon-red text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                    {wishlistCount}
+                  </span>
+                )}
+              </Link>
+              <Link to="/cart" className="relative p-2 text-primary hover:text-ribbon-red transition-colors" aria-label="Cart">
+                <FiShoppingCart size={20} />
+                {cartCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-ribbon-red text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+            </div>
           </div>
         </div>
       </div>
@@ -321,7 +366,7 @@ export default function ProductsPage() {
                     className="group bg-white rounded-xl border border-peach/30 overflow-hidden hover:shadow-lg hover:shadow-peach/20 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:border-ribbon-red/30"
                   >
                     {/* Product Image */}
-                    <div className="relative bg-gradient-to-br from-cream to-soft-pink/50 p-6 flex items-center justify-center h-40">
+                    <Link to={`/product/${product.id}`} className="relative bg-gradient-to-br from-cream to-soft-pink/50 p-6 flex items-center justify-center h-40 block">
                       <span className="text-5xl group-hover:scale-125 group-hover:rotate-3 transition-transform duration-500 ease-out">
                         {product.emoji}
                       </span>
@@ -331,10 +376,23 @@ export default function ProductsPage() {
                       <button
                         className="absolute top-2 right-2 w-7 h-7 bg-white rounded-full shadow flex items-center justify-center hover:bg-ribbon-red hover:text-white transition-colors text-primary opacity-0 group-hover:opacity-100"
                         aria-label={`Add to wishlist`}
+                        onClick={(e) => {
+                          e.preventDefault()
+                          const wishlist = JSON.parse(localStorage.getItem('luma-wishlist') || '[]')
+                          if (!wishlist.includes(product.id)) {
+                            wishlist.push(product.id)
+                            localStorage.setItem('luma-wishlist', JSON.stringify(wishlist))
+                            setWishlistCount(wishlist.length)
+                          } else {
+                            const updated = wishlist.filter((id) => id !== product.id)
+                            localStorage.setItem('luma-wishlist', JSON.stringify(updated))
+                            setWishlistCount(updated.length)
+                          }
+                        }}
                       >
                         <FiHeart size={12} />
                       </button>
-                    </div>
+                    </Link>
 
                     {/* Product Info */}
                     <div className="p-3">
@@ -355,7 +413,7 @@ export default function ProductsPage() {
                         </div>
                       </div>
                       <button
-                        onClick={() => handleOrder(product)}
+                        onClick={() => handleAddToCart(product)}
                         className="mt-2 w-full flex items-center justify-center gap-1.5 bg-[#25D366] hover:bg-[#1da851] text-white py-1.5 rounded-lg text-xs font-medium transition-colors"
                         aria-label={`Order via WhatsApp`}
                       >

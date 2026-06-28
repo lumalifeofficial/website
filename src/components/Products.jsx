@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiHeart, FiShoppingCart, FiStar } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
@@ -9,7 +10,30 @@ export default function Products() {
   const [gridRef, gridVisible] = useStaggerAnimation({ threshold: 0.05 })
   const [btnRef, btnVisible] = useScrollAnimation({ threshold: 0.5 })
 
-  const phoneNumber = '60198688608'
+  const [wishlist, setWishlist] = useState(() => {
+    return JSON.parse(localStorage.getItem('luma-wishlist') || '[]')
+  })
+
+  const toggleWishlist = (productId) => {
+    setWishlist((prev) => {
+      const updated = prev.includes(productId)
+        ? prev.filter((id) => id !== productId)
+        : [...prev, productId]
+      localStorage.setItem('luma-wishlist', JSON.stringify(updated))
+      return updated
+    })
+  }
+
+  const handleAddToCart = (product) => {
+    const cart = JSON.parse(localStorage.getItem('luma-cart') || '[]')
+    const existing = cart.find((item) => item.id === product.id)
+    if (existing) {
+      existing.quantity += 1
+    } else {
+      cart.push({ id: product.id, quantity: 1 })
+    }
+    localStorage.setItem('luma-cart', JSON.stringify(cart))
+  }
 
   const products = [
     {
@@ -80,12 +104,6 @@ export default function Products() {
     },
   ]
 
-  const handleOrder = (product) => {
-    const message = `Hi, I'm interested in ordering:\n\nItem Code: ${product.code}\nProduct: ${product.name}\nPrice: RM${product.price}`
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
-    window.open(url, '_blank')
-  }
-
   return (
     <section id="shop" className="py-20 bg-cream">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -126,10 +144,15 @@ export default function Products() {
                 </span>
                 {/* Wishlist */}
                 <button
-                  className="absolute top-4 right-4 w-9 h-9 bg-white rounded-full shadow flex items-center justify-center hover:bg-ribbon-red hover:text-white transition-all duration-300 text-primary opacity-0 group-hover:opacity-100 hover:scale-110"
+                  onClick={() => toggleWishlist(product.id)}
+                  className={`absolute top-4 right-4 w-9 h-9 rounded-full shadow flex items-center justify-center transition-all duration-300 hover:scale-110 ${
+                    wishlist.includes(product.id)
+                      ? 'bg-ribbon-red text-white'
+                      : 'bg-white text-primary hover:bg-ribbon-red hover:text-white opacity-0 group-hover:opacity-100'
+                  }`}
                   aria-label={`Add ${product.name} to wishlist`}
                 >
-                  <FiHeart size={16} />
+                  <FiHeart size={16} className={wishlist.includes(product.id) ? 'fill-current' : ''} />
                 </button>
               </div>
 
@@ -149,9 +172,9 @@ export default function Products() {
                     <span className="text-sm text-warm-brown/40 line-through">RM{product.originalPrice}</span>
                   </div>
                   <button
-                    onClick={() => handleOrder(product)}
+                    onClick={() => handleAddToCart(product)}
                     className="flex items-center gap-2 bg-[#25D366] hover:bg-[#1da851] text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 hover:shadow-md"
-                    aria-label={`Order ${product.name} via WhatsApp`}
+                    aria-label={`Add ${product.name} to cart`}
                   >
                     <FiShoppingCart size={14} />
                     {t('products.addToCart')}
