@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { FiChevronLeft, FiHeart, FiStar, FiTruck, FiShield, FiSmile } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation, useStaggerAnimation } from '../hooks/useScrollAnimation'
+import LanguageSelector from '../components/LanguageSelector'
 
 export default function AboutPage() {
   const { t } = useLanguage()
@@ -44,10 +45,10 @@ export default function AboutPage() {
               className="flex items-center gap-2 text-primary hover:text-ribbon-red transition-colors"
             >
               <FiChevronLeft size={20} />
-              <span className="font-medium text-sm">{t('aboutPage.backToHome')}</span>
+              <span className="hidden sm:inline font-medium text-sm">{t('aboutPage.backToHome')}</span>
             </Link>
             <h1 className="font-bold text-primary text-lg">{t('aboutPage.title')}</h1>
-            <div className="w-24" />
+            <LanguageSelector />
           </div>
         </div>
       </div>

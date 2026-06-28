@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { FiHeart, FiShoppingCart, FiStar, FiGrid, FiList, FiChevronLeft, FiFilter, FiX } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
+import LanguageSelector from '../components/LanguageSelector'
 import productsData from '../data/products'
 
 export default function ProductsPage() {
@@ -235,11 +236,14 @@ export default function ProductsPage() {
                 className="flex items-center gap-2 text-primary hover:text-ribbon-red transition-colors"
               >
                 <FiChevronLeft size={20} />
-                <span className="font-medium text-sm">{t('shopPage.backToHome')}</span>
+                <span className="hidden sm:inline font-medium text-sm">{t('shopPage.backToHome')}</span>
               </Link>
             </div>
             <h1 className="font-bold text-primary text-lg">{t('shopPage.title')}</h1>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="hidden sm:block">
+                <LanguageSelector />
+              </div>
               <Link to="/wishlist" className="relative p-2 text-primary hover:text-ribbon-red transition-colors" aria-label="Wishlist">
                 <FiHeart size={20} />
                 {wishlistCount > 0 && (
@@ -257,6 +261,10 @@ export default function ProductsPage() {
                 )}
               </Link>
             </div>
+          </div>
+          {/* Mobile language selector */}
+          <div className="sm:hidden flex justify-center pb-2">
+            <LanguageSelector />
           </div>
         </div>
       </div>
@@ -430,10 +438,10 @@ export default function ProductsPage() {
                 {filteredProducts.map((product) => (
                   <div
                     key={product.id}
-                    className="group bg-white rounded-xl border border-peach/30 overflow-hidden hover:shadow-lg hover:shadow-peach/20 transition-all duration-300 hover:border-ribbon-red/30 flex"
+                    className="group bg-white rounded-xl border border-peach/30 overflow-hidden hover:shadow-lg hover:shadow-peach/20 transition-all duration-300 hover:border-ribbon-red/30 flex flex-col sm:flex-row"
                   >
                     {/* Product Image */}
-                    <div className="relative bg-gradient-to-br from-cream to-soft-pink/50 p-6 flex items-center justify-center w-40 flex-shrink-0">
+                    <div className="relative bg-gradient-to-br from-cream to-soft-pink/50 p-6 flex items-center justify-center w-full sm:w-40 h-32 sm:h-auto flex-shrink-0">
                       <span className="text-4xl group-hover:scale-125 group-hover:rotate-3 transition-transform duration-500 ease-out">
                         {product.emoji}
                       </span>
@@ -456,7 +464,7 @@ export default function ProductsPage() {
                           </span>
                         </div>
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div className="flex items-center gap-2">
                           <span className="text-xl font-bold text-ribbon-red">RM{product.price}</span>
                           <span className="text-sm text-warm-brown/40 line-through">RM{product.originalPrice}</span>
@@ -466,7 +474,7 @@ export default function ProductsPage() {
                         </div>
                         <button
                           onClick={() => handleOrder(product)}
-                          className="flex items-center gap-2 bg-[#25D366] hover:bg-[#1da851] text-white px-4 py-2 rounded-full text-sm font-medium transition-colors"
+                          className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1da851] text-white px-4 py-2 rounded-full text-sm font-medium transition-colors"
                           aria-label={`Order via WhatsApp`}
                         >
                           <FiShoppingCart size={14} />

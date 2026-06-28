@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { FiChevronLeft, FiHeart, FiShoppingCart, FiTrash2, FiStar } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation, useStaggerAnimation } from '../hooks/useScrollAnimation'
+import LanguageSelector from '../components/LanguageSelector'
 import productsData from '../data/products'
 
 export default function WishlistPage() {
@@ -54,12 +55,12 @@ export default function WishlistPage() {
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center gap-2 text-primary hover:text-ribbon-red transition-colors">
               <FiChevronLeft size={20} />
-              <span className="font-medium text-sm">{t('wishlistPage.backToHome')}</span>
+              <span className="hidden sm:inline font-medium text-sm">{t('wishlistPage.backToHome')}</span>
             </Link>
-            <h1 className="font-bold text-primary text-lg">
+            <h1 className="font-bold text-primary text-base sm:text-lg">
               {t('wishlistPage.title')} ({wishlistProducts.length})
             </h1>
-            <div className="w-24" />
+            <LanguageSelector />
           </div>
         </div>
       </div>

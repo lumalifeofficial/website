@@ -4,6 +4,7 @@ import { FiChevronLeft, FiTrash2, FiPlus, FiMinus, FiShoppingBag } from 'react-i
 import { FaWhatsapp } from 'react-icons/fa'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import LanguageSelector from '../components/LanguageSelector'
 import productsData from '../data/products'
 
 export default function CartPage() {
@@ -65,10 +66,10 @@ export default function CartPage() {
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center gap-2 text-primary hover:text-ribbon-red transition-colors">
               <FiChevronLeft size={20} />
-              <span className="font-medium text-sm">{t('cartPage.backToHome')}</span>
+              <span className="hidden sm:inline font-medium text-sm">{t('cartPage.backToHome')}</span>
             </Link>
             <h1 className="font-bold text-primary text-lg">{t('cartPage.title')}</h1>
-            <div className="w-24" />
+            <LanguageSelector />
           </div>
         </div>
       </div>
@@ -99,46 +100,63 @@ export default function CartPage() {
                 return (
                   <div
                     key={item.id}
-                    className="bg-white rounded-xl border border-peach/30 p-4 flex items-center gap-4 hover:shadow-md transition-shadow"
+                    className="bg-white rounded-xl border border-peach/30 p-4 hover:shadow-md transition-shadow"
                   >
-                    <div className="w-16 h-16 bg-gradient-to-br from-cream to-soft-pink/50 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <span className="text-3xl">{product.emoji}</span>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-primary text-sm truncate">
-                        {t(`shopPage.products.${product.nameKey}`)}
-                      </h3>
-                      <p className="text-ribbon-red font-bold text-sm">RM{product.price}</p>
-                    </div>
-                    <div className="flex items-center gap-2">
+                    {/* Mobile layout: stacked */}
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-cream to-soft-pink/50 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <span className="text-2xl sm:text-3xl">{product.emoji}</span>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold text-primary text-sm truncate">
+                          {t(`shopPage.products.${product.nameKey}`)}
+                        </h3>
+                        <p className="text-ribbon-red font-bold text-sm">RM{product.price}</p>
+                      </div>
+                      {/* Desktop: inline delete */}
                       <button
-                        onClick={() => updateQuantity(item.id, -1)}
-                        className="w-7 h-7 rounded-full border border-peach/50 flex items-center justify-center text-warm-brown/60 hover:border-ribbon-red hover:text-ribbon-red transition-colors"
-                        aria-label="Decrease quantity"
+                        onClick={() => removeItem(item.id)}
+                        className="hidden sm:block p-2 text-warm-brown/40 hover:text-ribbon-red transition-colors"
+                        aria-label="Remove item"
                       >
-                        <FiMinus size={12} />
-                      </button>
-                      <span className="w-8 text-center text-sm font-medium text-primary">
-                        {item.quantity}
-                      </span>
-                      <button
-                        onClick={() => updateQuantity(item.id, 1)}
-                        className="w-7 h-7 rounded-full border border-peach/50 flex items-center justify-center text-warm-brown/60 hover:border-ribbon-red hover:text-ribbon-red transition-colors"
-                        aria-label="Increase quantity"
-                      >
-                        <FiPlus size={12} />
+                        <FiTrash2 size={16} />
                       </button>
                     </div>
-                    <p className="font-bold text-primary text-sm w-20 text-right">
-                      RM{(product.price * item.quantity).toFixed(2)}
-                    </p>
-                    <button
-                      onClick={() => removeItem(item.id)}
-                      className="p-2 text-warm-brown/40 hover:text-ribbon-red transition-colors"
-                      aria-label="Remove item"
-                    >
-                      <FiTrash2 size={16} />
-                    </button>
+                    {/* Quantity & total row */}
+                    <div className="flex items-center justify-between mt-3 pt-3 border-t border-peach/20 sm:border-0 sm:pt-0 sm:mt-2">
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => updateQuantity(item.id, -1)}
+                          className="w-7 h-7 rounded-full border border-peach/50 flex items-center justify-center text-warm-brown/60 hover:border-ribbon-red hover:text-ribbon-red transition-colors"
+                          aria-label="Decrease quantity"
+                        >
+                          <FiMinus size={12} />
+                        </button>
+                        <span className="w-8 text-center text-sm font-medium text-primary">
+                          {item.quantity}
+                        </span>
+                        <button
+                          onClick={() => updateQuantity(item.id, 1)}
+                          className="w-7 h-7 rounded-full border border-peach/50 flex items-center justify-center text-warm-brown/60 hover:border-ribbon-red hover:text-ribbon-red transition-colors"
+                          aria-label="Increase quantity"
+                        >
+                          <FiPlus size={12} />
+                        </button>
+                      </div>
+                      <div className="flex items-center gap-3">
+                        <p className="font-bold text-primary text-sm">
+                          RM{(product.price * item.quantity).toFixed(2)}
+                        </p>
+                        {/* Mobile: delete button */}
+                        <button
+                          onClick={() => removeItem(item.id)}
+                          className="sm:hidden p-2 text-warm-brown/40 hover:text-ribbon-red transition-colors"
+                          aria-label="Remove item"
+                        >
+                          <FiTrash2 size={16} />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 )
               })}

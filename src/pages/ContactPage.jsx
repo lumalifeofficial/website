@@ -4,6 +4,7 @@ import { FiChevronLeft, FiMail, FiPhone, FiMapPin, FiClock, FiSend, FiMessageCir
 import { FaWhatsapp, FaInstagram, FaFacebookF } from 'react-icons/fa'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation, useStaggerAnimation } from '../hooks/useScrollAnimation'
+import LanguageSelector from '../components/LanguageSelector'
 
 export default function ContactPage() {
   const { t } = useLanguage()
@@ -39,10 +40,10 @@ export default function ContactPage() {
               className="flex items-center gap-2 text-primary hover:text-ribbon-red transition-colors"
             >
               <FiChevronLeft size={20} />
-              <span className="font-medium text-sm">{t('contactPage.backToHome')}</span>
+              <span className="hidden sm:inline font-medium text-sm">{t('contactPage.backToHome')}</span>
             </Link>
             <h1 className="font-bold text-primary text-lg">{t('contactPage.title')}</h1>
-            <div className="w-24" />
+            <LanguageSelector />
           </div>
         </div>
       </div>

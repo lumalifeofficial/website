@@ -4,6 +4,7 @@ import { FiChevronLeft, FiHeart, FiShoppingCart, FiStar, FiShare2, FiMinus, FiPl
 import { FaWhatsapp } from 'react-icons/fa'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import LanguageSelector from '../components/LanguageSelector'
 import productsData from '../data/products'
 
 export default function ProductDetailPage() {
@@ -87,8 +88,9 @@ export default function ProductDetailPage() {
           <div className="flex items-center justify-between h-16">
             <Link to="/products" className="flex items-center gap-2 text-primary hover:text-ribbon-red transition-colors">
               <FiChevronLeft size={20} />
-              <span className="font-medium text-sm">{t('productDetail.backToProducts')}</span>
+              <span className="hidden sm:inline font-medium text-sm">{t('productDetail.backToProducts')}</span>
             </Link>
+            <LanguageSelector />
             <div className="flex items-center gap-3">
               <button onClick={handleShare} className="p-2 text-primary hover:text-ribbon-red transition-colors" aria-label="Share">
                 <FiShare2 size={18} />
