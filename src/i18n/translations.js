@@ -86,6 +86,7 @@ const translations = {
       instagram: 'Daily cuteness & product showcases',
       facebook: 'Community deals & live events',
       tiktok: 'Viral unboxings & kawaii hauls',
+      telegram: 'Join our Telegram channel',
       youtube: 'Reviews, tutorials & vlogs',
       twitter: 'Updates, launches & giveaways',
     },
@@ -181,6 +182,7 @@ const translations = {
       ctaTitle: 'Ready to Find Your Little Joy?',
       ctaDescription: '📦 Nationwide shipping across Malaysia · Resellers & collaboration welcome',
       ctaButton: 'Browse Products ♡',
+      ssmLabel: 'SSM Registered',
     },
 
     // Contact Page
@@ -437,6 +439,7 @@ const translations = {
       instagram: '每日可爱内容和产品展示',
       facebook: '社区优惠和直播活动',
       tiktok: '热门开箱和可爱好物',
+      telegram: '加入我们的Telegram频道',
       youtube: '评测、教程和日常',
       twitter: '更新、上新和抽奖',
     },
@@ -531,6 +534,7 @@ const translations = {
       ctaTitle: '准备好找到你的小小快乐了吗？',
       ctaDescription: '📦 全马寄送 · 欢迎代理与联名合作',
       ctaButton: '浏览产品 ♡',
+      ssmLabel: 'SSM 注册企业',
     },
 
     // Contact Page

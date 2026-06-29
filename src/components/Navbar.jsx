@@ -14,7 +14,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center gap-2">
-            <img src="/logoHeaader.jpeg" alt="Luma" className="h-20 w-20 object-cover rounded-full" />
+            <img src="/logoHeaader.jpeg" alt="Luma" className="h-12 w-12 object-cover rounded-full" />
           </div>
 
           {/* Desktop Navigation */}

@@ -1,4 +1,4 @@
-import { FaInstagram, FaFacebookF, FaTiktok } from 'react-icons/fa'
+import { FaInstagram, FaFacebookF, FaTiktok, FaTelegramPlane } from 'react-icons/fa'
 import { SiXiaohongshu } from 'react-icons/si'
 import { FiMail } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
@@ -41,6 +41,14 @@ export default function SocialMedia() {
       color: 'from-red-400 to-red-500',
       url: 'https://xhslink.com/m/2lWi95LPEFm',
       description: t('social.xhs') || 'Follow us on Xiaohongshu',
+    },
+    {
+      name: 'Telegram',
+      icon: FaTelegramPlane,
+      handle: '@LUMALIFEENTERPRISE',
+      color: 'from-sky-400 to-blue-500',
+      url: 'https://t.me/LUMALIFEENTERPRISE',
+      description: t('social.telegram') || 'Join us on Telegram',
     },
     {
       name: 'Gmail',

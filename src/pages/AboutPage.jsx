@@ -174,6 +174,16 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* SSM Registration */}
+      <section className="py-12 px-4 bg-white">
+        <div className="max-w-md mx-auto text-center">
+          <span className="text-sm font-semibold text-ribbon-red uppercase tracking-wider">{t('aboutPage.ssmLabel')}</span>
+          <div className="mt-4">
+            <img src="/ssm.jpg" alt="SSM Registration Certificate" className="w-full h-auto rounded-xl shadow-md border border-peach/30" />
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-20 px-4 text-center">
         <div className="max-w-2xl mx-auto">

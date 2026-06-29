@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { FaInstagram, FaFacebookF, FaTiktok } from 'react-icons/fa'
+import { FaInstagram, FaFacebookF, FaTiktok, FaTelegramPlane } from 'react-icons/fa'
 import { SiXiaohongshu } from 'react-icons/si'
 import { FiMapPin, FiMail, FiPhone, FiHeart } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
@@ -37,6 +37,9 @@ export default function Footer() {
               </a>
               <a href="https://xhslink.com/m/2lWi95LPEFm" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white/10 hover:bg-ribbon-red rounded-full flex items-center justify-center transition-colors" aria-label="Xiaohongshu">
                 <SiXiaohongshu size={16} />
+              </a>
+              <a href="https://t.me/LUMALIFEENTERPRISE" target="_blank" rel="noopener noreferrer" className="w-9 h-9 bg-white/10 hover:bg-ribbon-red rounded-full flex items-center justify-center transition-colors" aria-label="Telegram">
+                <FaTelegramPlane size={16} />
               </a>
             </div>
           </div>
@@ -94,12 +97,16 @@ export default function Footer() {
           <p className="text-gray-400 text-sm flex items-center gap-1">
             {t('footer.copyright')} <FiHeart className="text-ribbon-red" size={12} /> {t('footer.carryASmile')}
           </p>
-          <div className="flex items-center gap-4">
-            <span className="text-gray-500 text-xs">{t('footer.weAccept')}</span>
-            <div className="flex gap-2 text-lg">
-              <span title="Visa">💳</span>
-              <span title="Online Banking">🏦</span>
-              <span title="E-Wallet">📱</span>
+          <div className="flex items-center gap-6">
+            {/* SSM Registration */}
+            <img src="/ssm.jpg" alt="SSM Registered" className="h-14 w-auto rounded opacity-90" />
+            <div className="flex items-center gap-4">
+              <span className="text-gray-500 text-xs">{t('footer.weAccept')}</span>
+              <div className="flex gap-2 text-lg">
+                <span title="Visa">💳</span>
+                <span title="Online Banking">🏦</span>
+                <span title="E-Wallet">📱</span>
+              </div>
             </div>
           </div>
         </div>
