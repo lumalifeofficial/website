@@ -21,6 +21,11 @@ function getSourceElement(triggerElement, imageElement) {
   )
 }
 
+export function notifyCartUpdated() {
+  if (typeof window === 'undefined') return
+  window.dispatchEvent(new Event('luma-cart-updated'))
+}
+
 export function animateAddToCart({ product, language = 'en', triggerElement, imageElement }) {
   if (typeof window === 'undefined' || typeof document === 'undefined') return
 

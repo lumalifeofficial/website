@@ -8,7 +8,7 @@ import LanguageSelector from '../components/LanguageSelector'
 import productsData from '../data/products'
 import { ProductGallery, ProductImage, getProductName } from '../utils/productImage.jsx'
 import { contactLinks } from '../config/contactLinks'
-import { animateAddToCart } from '../utils/cartAnimation'
+import { animateAddToCart, notifyCartUpdated } from '../utils/cartAnimation'
 
 export default function ProductDetailPage() {
   const { t, language } = useLanguage()
@@ -52,6 +52,7 @@ export default function ProductDetailPage() {
       cart.push({ id: product.id, quantity })
     }
     localStorage.setItem('luma-cart', JSON.stringify(cart))
+    notifyCartUpdated()
     animateAddToCart({
       product,
       language,

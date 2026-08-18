@@ -6,7 +6,7 @@ import { useScrollAnimation, useStaggerAnimation } from '../hooks/useScrollAnima
 import LanguageSelector from '../components/LanguageSelector'
 import productsData from '../data/products'
 import { ProductImage, getProductName } from '../utils/productImage.jsx'
-import { animateAddToCart } from '../utils/cartAnimation'
+import { animateAddToCart, notifyCartUpdated } from '../utils/cartAnimation'
 import { contactLinks } from '../config/contactLinks'
 
 export default function WishlistPage() {
@@ -39,7 +39,10 @@ export default function WishlistPage() {
       cart.push({ id: product.id, quantity: 1 })
     }
     localStorage.setItem('luma-cart', JSON.stringify(cart))
-    alert(t('wishlistPage.addedToCart'))
+    notifyCartUpdated()
+    animateAddToCart({ product, language, triggerElement: event.currentTarget })
+    setAddedProductId(product.id)
+    window.setTimeout(() => setAddedProductId(null), 1400)
   }
 
   const handleOrder = (product) => {

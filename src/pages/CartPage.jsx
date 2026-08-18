@@ -75,24 +75,24 @@ export default function CartPage() {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 py-8">
+      <div className="max-w-5xl mx-auto px-3 pb-28 pt-5 sm:px-4 sm:py-8 lg:pb-10">
         {cartItems.length === 0 ? (
           <div
             ref={heroRef}
-            className={`text-center py-20 bg-white rounded-2xl border border-peach/30 scroll-fade-up ${heroVisible ? 'visible' : ''}`}
+            className={`text-center px-5 py-16 sm:py-20 bg-white rounded-2xl border border-peach/30 shadow-sm scroll-fade-up ${heroVisible ? 'visible' : ''}`}
           >
             <FiShoppingBag className="mx-auto text-peach mb-4" size={60} />
-            <h2 className="text-2xl font-bold text-primary mb-2">{t('cartPage.emptyTitle')}</h2>
-            <p className="text-warm-brown/60 mb-6">{t('cartPage.emptyDescription')}</p>
+            <h2 className="text-xl sm:text-2xl font-bold text-primary mb-2">{t('cartPage.emptyTitle')}</h2>
+            <p className="text-sm sm:text-base text-warm-brown/60 mb-6">{t('cartPage.emptyDescription')}</p>
             <Link
               to="/products"
-              className="inline-flex items-center gap-2 bg-ribbon-red hover:bg-ribbon-red/90 text-white px-6 py-3 rounded-full font-semibold text-sm transition-colors"
+              className="inline-flex min-h-12 items-center justify-center gap-2 bg-ribbon-red hover:bg-ribbon-red/90 text-white px-6 py-3 rounded-full font-semibold text-sm transition-colors"
             >
               {t('cartPage.continueShopping')}
             </Link>
           </div>
         ) : (
-          <div className="grid lg:grid-cols-3 gap-8">
+          <div className="grid lg:grid-cols-[minmax(0,1fr)_340px] gap-5 lg:gap-8">
             {/* Cart Items */}
             <div className="lg:col-span-2 space-y-4">
               {cartItems.map((item) => {
@@ -101,60 +101,66 @@ export default function CartPage() {
                 return (
                   <div
                     key={item.id}
-                    className="bg-white rounded-xl border border-peach/30 p-4 hover:shadow-md transition-shadow"
+                    className="bg-white rounded-2xl border border-peach/30 p-3 shadow-sm transition-shadow hover:shadow-md sm:p-4"
                   >
-                    {/* Mobile layout: stacked */}
-                    <div className="flex items-center gap-3 sm:gap-4">
-                      <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-cream to-soft-pink/50 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <div className="grid grid-cols-[88px_minmax(0,1fr)] gap-3 sm:grid-cols-[104px_minmax(0,1fr)_auto] sm:items-center sm:gap-4">
+                      <div
+                        data-cart-image
+                        className="aspect-square w-full overflow-hidden rounded-xl bg-gradient-to-br from-cream to-soft-pink/50 p-2 flex items-center justify-center"
+                      >
                         <ProductImage
                           product={product}
-                          emojiClassName="text-2xl sm:text-3xl"
+                          className="max-h-full max-w-full"
+                          emojiClassName="text-4xl sm:text-5xl"
                         />
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <h3 className="font-semibold text-primary text-sm truncate">
+                      <div className="min-w-0 self-start sm:self-center">
+                        <p className="mb-1 text-[10px] font-mono uppercase tracking-wide text-warm-brown/40">
+                          {product.code}
+                        </p>
+                        <h3 className="font-semibold text-primary text-sm leading-snug sm:text-base">
                           {getProductName(product, language)}
                         </h3>
-                        <p className="text-ribbon-red font-bold text-sm">RM{product.price.toFixed(2)}</p>
+                        <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
+                          <p className="text-ribbon-red font-bold text-base">RM{product.price.toFixed(2)}</p>
+                          <span className="text-xs text-warm-brown/45">x{item.quantity}</span>
+                        </div>
                       </div>
-                      {/* Desktop: inline delete */}
                       <button
                         onClick={() => removeItem(item.id)}
-                        className="hidden sm:block p-2 text-warm-brown/40 hover:text-ribbon-red transition-colors"
+                        className="hidden sm:flex h-10 w-10 items-center justify-center rounded-full text-warm-brown/40 transition-colors hover:bg-ribbon-red/10 hover:text-ribbon-red"
                         aria-label="Remove item"
                       >
                         <FiTrash2 size={16} />
                       </button>
                     </div>
-                    {/* Quantity & total row */}
-                    <div className="flex items-center justify-between mt-3 pt-3 border-t border-peach/20 sm:border-0 sm:pt-0 sm:mt-2">
-                      <div className="flex items-center gap-2">
+                    <div className="mt-3 flex items-center justify-between gap-3 border-t border-peach/20 pt-3 sm:ml-[120px] sm:mt-0 sm:border-0 sm:pt-0">
+                      <div className="flex h-10 items-center rounded-full border border-peach/60 bg-light px-1 shadow-inner">
                         <button
                           onClick={() => updateQuantity(item.id, -1)}
-                          className="w-7 h-7 rounded-full border border-peach/50 flex items-center justify-center text-warm-brown/60 hover:border-ribbon-red hover:text-ribbon-red transition-colors"
+                          className="h-8 w-8 rounded-full flex items-center justify-center text-warm-brown/60 transition-colors hover:bg-white hover:text-ribbon-red"
                           aria-label="Decrease quantity"
                         >
-                          <FiMinus size={12} />
+                          <FiMinus size={14} />
                         </button>
-                        <span className="w-8 text-center text-sm font-medium text-primary">
+                        <span className="w-9 text-center text-sm font-semibold text-primary">
                           {item.quantity}
                         </span>
                         <button
                           onClick={() => updateQuantity(item.id, 1)}
-                          className="w-7 h-7 rounded-full border border-peach/50 flex items-center justify-center text-warm-brown/60 hover:border-ribbon-red hover:text-ribbon-red transition-colors"
+                          className="h-8 w-8 rounded-full flex items-center justify-center text-warm-brown/60 transition-colors hover:bg-white hover:text-ribbon-red"
                           aria-label="Increase quantity"
                         >
-                          <FiPlus size={12} />
+                          <FiPlus size={14} />
                         </button>
                       </div>
-                      <div className="flex items-center gap-3">
-                        <p className="font-bold text-primary text-sm">
+                      <div className="flex min-w-0 items-center gap-2">
+                        <p className="text-right font-bold text-primary text-base leading-tight">
                           RM{(product.price * item.quantity).toFixed(2)}
                         </p>
-                        {/* Mobile: delete button */}
                         <button
                           onClick={() => removeItem(item.id)}
-                          className="sm:hidden p-2 text-warm-brown/40 hover:text-ribbon-red transition-colors"
+                          className="sm:hidden h-10 w-10 flex-shrink-0 rounded-full flex items-center justify-center text-warm-brown/40 transition-colors hover:bg-ribbon-red/10 hover:text-ribbon-red"
                           aria-label="Remove item"
                         >
                           <FiTrash2 size={16} />
@@ -166,7 +172,7 @@ export default function CartPage() {
               })}
               <button
                 onClick={clearCart}
-                className="text-sm text-warm-brown/60 hover:text-ribbon-red transition-colors underline"
+                className="min-h-10 px-2 text-sm text-warm-brown/60 hover:text-ribbon-red transition-colors underline"
               >
                 {t('cartPage.clearCart')}
               </button>
@@ -174,7 +180,7 @@ export default function CartPage() {
 
             {/* Order Summary */}
             <div className="lg:col-span-1">
-              <div className="bg-white rounded-2xl border border-peach/30 p-6 sticky top-24">
+              <div className="hidden bg-white rounded-2xl border border-peach/30 p-6 sticky top-24 shadow-sm lg:block">
                 <h3 className="font-bold text-primary text-lg mb-4">{t('cartPage.orderSummary')}</h3>
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between text-sm">
@@ -203,6 +209,22 @@ export default function CartPage() {
                 >
                   {t('cartPage.continueShopping')}
                 </Link>
+              </div>
+            </div>
+
+            <div className="fixed inset-x-0 bottom-0 z-40 border-t border-peach/40 bg-white/95 px-3 py-3 shadow-[0_-12px_30px_rgba(74,44,42,0.12)] backdrop-blur lg:hidden">
+              <div className="mx-auto flex max-w-5xl items-center gap-3">
+                <div className="min-w-0 flex-none w-[92px]">
+                  <p className="text-xs text-warm-brown/55">{t('cartPage.total')}</p>
+                  <p className="truncate text-xl font-bold text-ribbon-red">RM{subtotal.toFixed(2)}</p>
+                </div>
+                <button
+                  onClick={handleCheckout}
+                  className="flex min-h-12 min-w-0 flex-1 items-center justify-center gap-2 rounded-full bg-[#25D366] px-3 py-3 text-xs font-semibold text-white shadow-lg shadow-[#25D366]/20 transition-colors hover:bg-[#1da851] sm:text-sm"
+                >
+                  <FaWhatsapp size={18} />
+                  {t('cartPage.checkoutWhatsApp')}
+                </button>
               </div>
             </div>
           </div>

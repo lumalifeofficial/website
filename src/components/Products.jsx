@@ -5,7 +5,7 @@ import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation, useStaggerAnimation } from '../hooks/useScrollAnimation'
 import productsData from '../data/products'
 import { ProductImage, getProductName } from '../utils/productImage.jsx'
-import { animateAddToCart } from '../utils/cartAnimation'
+import { animateAddToCart, notifyCartUpdated } from '../utils/cartAnimation'
 
 export default function Products() {
   const { t, language } = useLanguage()
@@ -37,6 +37,7 @@ export default function Products() {
       cart.push({ id: product.id, quantity: 1 })
     }
     localStorage.setItem('luma-cart', JSON.stringify(cart))
+    notifyCartUpdated()
     animateAddToCart({ product, language, triggerElement: event.currentTarget })
   }
 
@@ -80,6 +81,7 @@ export default function Products() {
           {products.map((product, index) => (
             <div
               key={product.id}
+              data-product-card
               role="link"
               tabIndex={0}
               onClick={() => openProductDetail(product.id)}
@@ -140,7 +142,7 @@ export default function Products() {
                   <button
                     onClick={(event) => {
                       event.stopPropagation()
-                      handleAddToCart(product)
+                      handleAddToCart(product, event)
                     }}
                     className="flex items-center gap-2 bg-[#25D366] hover:bg-[#1da851] text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 hover:shadow-md"
                     aria-label={`Add ${product.name} to cart`}
