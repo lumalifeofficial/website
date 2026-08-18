@@ -5,13 +5,16 @@ import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation, useStaggerAnimation } from '../hooks/useScrollAnimation'
 import LanguageSelector from '../components/LanguageSelector'
 import productsData from '../data/products'
+import { ProductImage, getProductName } from '../utils/productImage.jsx'
+import { animateAddToCart } from '../utils/cartAnimation'
+import { contactLinks } from '../config/contactLinks'
 
 export default function WishlistPage() {
-  const { t } = useLanguage()
-  const phoneNumber = '60198688608'
+  const { t, language } = useLanguage()
   const [emptyRef, emptyVisible] = useScrollAnimation({ threshold: 0.1 })
   const [gridRef, gridVisible] = useStaggerAnimation({ threshold: 0.1 })
 
+  const [addedProductId, setAddedProductId] = useState(null)
   const [wishlist, setWishlist] = useState(() => {
     const saved = localStorage.getItem('luma-wishlist')
     if (saved) return JSON.parse(saved)
@@ -27,7 +30,7 @@ export default function WishlistPage() {
     saveWishlist(wishlist.filter((id) => id !== productId))
   }
 
-  const addToCart = (product) => {
+  const addToCart = (product, event) => {
     const cart = JSON.parse(localStorage.getItem('luma-cart') || '[]')
     const existing = cart.find((item) => item.id === product.id)
     if (existing) {
@@ -40,9 +43,9 @@ export default function WishlistPage() {
   }
 
   const handleOrder = (product) => {
-    const name = t(`shopPage.products.${product.nameKey}`)
-    const message = `Hi, I'm interested in:\n\nProduct: ${name}\nPrice: RM${product.price}`
-    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank')
+    const name = getProductName(product, language)
+    const message = `Hi, I'm interested in:\n\nProduct: ${name}\nPrice: RM${product.price.toFixed(2)}`
+    window.open(`${contactLinks.whatsapp.url}?text=${encodeURIComponent(message)}`, '_blank')
   }
 
   const wishlistProducts = productsData.filter((p) => wishlist.includes(p.id))
@@ -86,12 +89,15 @@ export default function WishlistPage() {
             {wishlistProducts.map((product, index) => (
               <div
                 key={product.id}
+                data-product-card
                 className={`group bg-white rounded-xl border border-peach/30 overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1 scroll-zoom-in stagger-delay-${Math.min(index + 1, 6)} ${gridVisible ? 'visible' : ''}`}
               >
-                <div className="relative bg-gradient-to-br from-cream to-soft-pink/50 p-6 flex items-center justify-center h-40">
-                  <span className="text-5xl group-hover:scale-110 transition-transform duration-300">
-                    {product.emoji}
-                  </span>
+                <div data-cart-image className="relative bg-gradient-to-br from-cream to-soft-pink/50 p-2 flex items-center justify-center h-56">
+                  <ProductImage
+                    product={product}
+                    className="group-hover:scale-110 transition-transform duration-300"
+                    emojiClassName="text-5xl group-hover:scale-110 transition-transform duration-300"
+                  />
                   <button
                     onClick={() => removeFromWishlist(product.id)}
                     className="absolute top-2 right-2 w-7 h-7 bg-ribbon-red text-white rounded-full flex items-center justify-center hover:bg-red-700 transition-colors"
@@ -102,23 +108,25 @@ export default function WishlistPage() {
                 </div>
                 <div className="p-3">
                   <h3 className="font-medium text-primary text-sm mb-1 line-clamp-2">
-                    {t(`shopPage.products.${product.nameKey}`)}
+                    {getProductName(product, language)}
                   </h3>
                   <div className="flex items-center gap-1 mb-2">
                     <FiStar className="text-gold fill-current" size={11} />
                     <span className="text-xs text-warm-brown/60">{product.rating}</span>
                   </div>
                   <div className="flex items-center justify-between mb-2">
-                    <span className="text-base font-bold text-ribbon-red">RM{product.price}</span>
-                    <span className="text-[10px] text-warm-brown/40 line-through">RM{product.originalPrice}</span>
+                    <span className="text-base font-bold text-ribbon-red">RM{product.price.toFixed(2)}</span>
+                    {product.originalPrice > product.price && (
+                      <span className="text-[10px] text-warm-brown/40 line-through">RM{product.originalPrice.toFixed(2)}</span>
+                    )}
                   </div>
                   <div className="flex gap-2">
                     <button
-                      onClick={() => addToCart(product)}
+                      onClick={(event) => addToCart(product, event)}
                       className="flex-1 flex items-center justify-center gap-1 bg-ribbon-red hover:bg-ribbon-red/90 text-white py-1.5 rounded-lg text-xs font-medium transition-colors"
                     >
                       <FiShoppingCart size={11} />
-                      {t('wishlistPage.addToCart')}
+                      {addedProductId === product.id ? t('wishlistPage.addedToCart') : t('wishlistPage.addToCart')}
                     </button>
                     <button
                       onClick={() => handleOrder(product)}

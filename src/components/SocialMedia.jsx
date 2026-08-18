@@ -1,8 +1,9 @@
-import { FaInstagram, FaFacebookF, FaTiktok, FaTelegramPlane } from 'react-icons/fa'
+import { FaInstagram, FaFacebookF, FaTiktok, FaTelegramPlane, FaWhatsapp } from 'react-icons/fa'
 import { SiXiaohongshu } from 'react-icons/si'
-import { FiMail } from 'react-icons/fi'
+import { FiGlobe, FiMail } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation, useStaggerAnimation } from '../hooks/useScrollAnimation'
+import { contactLinks } from '../config/contactLinks'
 
 export default function SocialMedia() {
   const { t } = useLanguage()
@@ -13,50 +14,66 @@ export default function SocialMedia() {
     {
       name: 'Instagram',
       icon: FaInstagram,
-      handle: '@lumalifeofficial',
+      handle: contactLinks.instagram.handle,
       color: 'from-purple-400 via-pink-400 to-orange-300',
-      url: 'https://www.instagram.com/lumalifeofficial?igsh=MXVydGF4aHMwc3N3ZA==',
+      url: contactLinks.instagram.url,
       description: t('social.instagram'),
     },
     {
       name: 'Facebook',
       icon: FaFacebookF,
-      handle: 'LUMA LIFE',
+      handle: contactLinks.facebook.handle,
       color: 'from-blue-400 to-blue-500',
-      url: 'https://www.facebook.com/share/1RsKmqqNyk/',
+      url: contactLinks.facebook.url,
       description: t('social.facebook'),
     },
     {
       name: 'TikTok',
       icon: FaTiktok,
-      handle: '@luma.life.officia',
+      handle: contactLinks.tiktok.handle,
       color: 'from-gray-700 to-gray-800',
-      url: 'https://www.tiktok.com/@luma.life.officia?_r=1&_t=ZS-97YpaL8QADs',
+      url: contactLinks.tiktok.url,
       description: t('social.tiktok'),
     },
     {
       name: '小红书 (XHS)',
       icon: SiXiaohongshu,
-      handle: 'LUMA LIFE',
+      handle: contactLinks.xhs.handle,
       color: 'from-red-400 to-red-500',
-      url: 'https://xhslink.com/m/2lWi95LPEFm',
+      url: contactLinks.xhs.url,
       description: t('social.xhs') || 'Follow us on Xiaohongshu',
     },
     {
       name: 'Telegram',
       icon: FaTelegramPlane,
-      handle: '@LUMALIFEENTERPRISE',
+      handle: contactLinks.telegram.handle,
       color: 'from-sky-400 to-blue-500',
-      url: 'https://t.me/LUMALIFEENTERPRISE',
+      url: contactLinks.telegram.url,
       description: t('social.telegram') || 'Join us on Telegram',
+    },
+    {
+      name: 'WhatsApp',
+      icon: FaWhatsapp,
+      handle: contactLinks.whatsapp.display,
+      color: 'from-green-400 to-emerald-500',
+      url: contactLinks.whatsapp.url,
+      description: 'Chat with us on WhatsApp',
     },
     {
       name: 'Gmail',
       icon: FiMail,
-      handle: 'LUMALIFEOFFICIAL@GMAIL.COM',
+      handle: contactLinks.email.address,
       color: 'from-red-500 to-orange-400',
-      url: 'mailto:LUMALIFEOFFICIAL@GMAIL.COM',
+      url: contactLinks.email.url,
       description: t('social.email') || 'Email us',
+    },
+    {
+      name: 'Website',
+      icon: FiGlobe,
+      handle: contactLinks.website.display,
+      color: 'from-emerald-400 to-teal-500',
+      url: contactLinks.website.url,
+      description: contactLinks.website.previewDisplay,
     },
   ]
 
@@ -78,7 +95,7 @@ export default function SocialMedia() {
         </div>
 
         {/* Social Cards Grid - staggered pop-in */}
-        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {socialPlatforms.map((platform, index) => (
             <a
               key={platform.name}

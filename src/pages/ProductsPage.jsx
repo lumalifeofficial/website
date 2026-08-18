@@ -4,10 +4,11 @@ import { FiHeart, FiShoppingCart, FiStar, FiGrid, FiList, FiChevronLeft, FiFilte
 import { useLanguage } from '../i18n/LanguageContext'
 import LanguageSelector from '../components/LanguageSelector'
 import productsData from '../data/products'
+import { ProductImage, getProductName } from '../utils/productImage.jsx'
+import { animateAddToCart } from '../utils/cartAnimation'
 
 export default function ProductsPage() {
-  const { t } = useLanguage()
-  const phoneNumber = '60198688608'
+  const { t, language } = useLanguage()
 
   // Filter states
   const [selectedCategory, setSelectedCategory] = useState('all')
@@ -40,6 +41,7 @@ export default function ProductsPage() {
     { key: 'kitchen', label: t('shopPage.kitchen') },
     { key: 'home', label: t('shopPage.home') },
     { key: 'accessories', label: t('shopPage.accessories') },
+    { key: 'plushies', label: t('shopPage.plushies') },
   ]
 
   const sortOptions = [
@@ -85,14 +87,7 @@ export default function ProductsPage() {
     return result
   }, [selectedCategory, priceRange, minRating, sortBy])
 
-  const handleOrder = (product) => {
-    const name = t(`shopPage.products.${product.nameKey}`)
-    const message = `Hi, I'm interested in ordering:\n\nItem Code: ${product.code}\nProduct: ${name}\nPrice: RM${product.price}`
-    const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
-    window.open(url, '_blank')
-  }
-
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (product, event) => {
     const cart = JSON.parse(localStorage.getItem('luma-cart') || '[]')
     const existing = cart.find((item) => item.id === product.id)
     if (existing) {
@@ -102,6 +97,7 @@ export default function ProductsPage() {
     }
     localStorage.setItem('luma-cart', JSON.stringify(cart))
     setCartCount(cart.reduce((sum, item) => sum + item.quantity, 0))
+    animateAddToCart({ product, language, triggerElement: event.currentTarget })
   }
 
   const clearFilters = () => {
@@ -252,7 +248,7 @@ export default function ProductsPage() {
                   </span>
                 )}
               </Link>
-              <Link to="/cart" className="relative p-2 text-primary hover:text-ribbon-red transition-colors" aria-label="Cart">
+              <Link to="/cart" data-cart-target="true" className="relative p-2 text-primary hover:text-ribbon-red transition-colors" aria-label="Cart">
                 <FiShoppingCart size={20} />
                 {cartCount > 0 && (
                   <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-ribbon-red text-white text-[10px] font-bold rounded-full flex items-center justify-center">
@@ -371,13 +367,16 @@ export default function ProductsPage() {
                 {filteredProducts.map((product) => (
                   <div
                     key={product.id}
+                    data-product-card
                     className="group bg-white rounded-xl border border-peach/30 overflow-hidden hover:shadow-lg hover:shadow-peach/20 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:border-ribbon-red/30"
                   >
                     {/* Product Image */}
-                    <Link to={`/product/${product.id}`} className="relative bg-gradient-to-br from-cream to-soft-pink/50 p-6 flex items-center justify-center h-40 block">
-                      <span className="text-5xl group-hover:scale-125 group-hover:rotate-3 transition-transform duration-500 ease-out">
-                        {product.emoji}
-                      </span>
+                    <Link to={`/product/${product.id}`} data-cart-image className="relative bg-gradient-to-br from-cream to-soft-pink/50 p-2 flex items-center justify-center h-56 block">
+                      <ProductImage
+                        product={product}
+                        className="group-hover:scale-110 transition-transform duration-500 ease-out"
+                        emojiClassName="text-5xl group-hover:scale-125 group-hover:rotate-3 transition-transform duration-500 ease-out"
+                      />
                       <span className="absolute top-2 left-2 bg-ribbon-red text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
                         {t(`products.${product.badgeKey}`)}
                       </span>
@@ -406,7 +405,7 @@ export default function ProductsPage() {
                     <div className="p-3">
                       <p className="text-[10px] font-mono text-warm-brown/40">{product.code}</p>
                       <h3 className="font-medium text-primary text-sm mb-1 line-clamp-2 leading-tight">
-                        {t(`shopPage.products.${product.nameKey}`)}
+                        {getProductName(product, language)}
                       </h3>
                       <div className="flex items-center gap-1 mb-2">
                         <FiStar className="text-gold fill-current" size={11} />
@@ -416,14 +415,16 @@ export default function ProductsPage() {
                       </div>
                       <div className="flex items-center justify-between">
                         <div>
-                          <span className="text-base font-bold text-ribbon-red">RM{product.price}</span>
-                          <span className="text-[10px] text-warm-brown/40 line-through ml-1">RM{product.originalPrice}</span>
+                          <span className="text-base font-bold text-ribbon-red">RM{product.price.toFixed(2)}</span>
+                          {product.originalPrice > product.price && (
+                            <span className="text-[10px] text-warm-brown/40 line-through ml-1">RM{product.originalPrice.toFixed(2)}</span>
+                          )}
                         </div>
                       </div>
                       <button
-                        onClick={() => handleAddToCart(product)}
+                        onClick={(event) => handleAddToCart(product, event)}
                         className="mt-2 w-full flex items-center justify-center gap-1.5 bg-[#25D366] hover:bg-[#1da851] text-white py-1.5 rounded-lg text-xs font-medium transition-colors"
-                        aria-label={`Order via WhatsApp`}
+                        aria-label={`Add ${getProductName(product, language)} to cart`}
                       >
                         <FiShoppingCart size={12} />
                         {t('products.addToCart')}
@@ -438,13 +439,16 @@ export default function ProductsPage() {
                 {filteredProducts.map((product) => (
                   <div
                     key={product.id}
+                    data-product-card
                     className="group bg-white rounded-xl border border-peach/30 overflow-hidden hover:shadow-lg hover:shadow-peach/20 transition-all duration-300 hover:border-ribbon-red/30 flex flex-col sm:flex-row"
                   >
                     {/* Product Image */}
-                    <div className="relative bg-gradient-to-br from-cream to-soft-pink/50 p-6 flex items-center justify-center w-full sm:w-40 h-32 sm:h-auto flex-shrink-0">
-                      <span className="text-4xl group-hover:scale-125 group-hover:rotate-3 transition-transform duration-500 ease-out">
-                        {product.emoji}
-                      </span>
+                    <div data-cart-image className="relative bg-gradient-to-br from-cream to-soft-pink/50 p-2 flex items-center justify-center w-full sm:w-56 h-56 sm:h-auto flex-shrink-0">
+                      <ProductImage
+                        product={product}
+                        className="group-hover:scale-110 transition-transform duration-500 ease-out"
+                        emojiClassName="text-4xl group-hover:scale-125 group-hover:rotate-3 transition-transform duration-500 ease-out"
+                      />
                       <span className="absolute top-2 left-2 bg-ribbon-red text-white text-[10px] font-bold px-2 py-0.5 rounded-full">
                         {t(`products.${product.badgeKey}`)}
                       </span>
@@ -455,7 +459,7 @@ export default function ProductsPage() {
                       <div>
                         <p className="text-[10px] font-mono text-warm-brown/40">{product.code}</p>
                         <h3 className="font-semibold text-primary text-base mb-1">
-                          {t(`shopPage.products.${product.nameKey}`)}
+                          {getProductName(product, language)}
                         </h3>
                         <div className="flex items-center gap-1 mb-2">
                           <FiStar className="text-gold fill-current" size={13} />
@@ -466,16 +470,20 @@ export default function ProductsPage() {
                       </div>
                       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                         <div className="flex items-center gap-2">
-                          <span className="text-xl font-bold text-ribbon-red">RM{product.price}</span>
-                          <span className="text-sm text-warm-brown/40 line-through">RM{product.originalPrice}</span>
-                          <span className="text-xs bg-ribbon-red/10 text-ribbon-red px-2 py-0.5 rounded-full font-medium">
-                            -{Math.round((1 - product.price / product.originalPrice) * 100)}%
-                          </span>
+                          <span className="text-xl font-bold text-ribbon-red">RM{product.price.toFixed(2)}</span>
+                          {product.originalPrice > product.price && (
+                            <>
+                              <span className="text-sm text-warm-brown/40 line-through">RM{product.originalPrice.toFixed(2)}</span>
+                              <span className="text-xs bg-ribbon-red/10 text-ribbon-red px-2 py-0.5 rounded-full font-medium">
+                                -{Math.round((1 - product.price / product.originalPrice) * 100)}%
+                              </span>
+                            </>
+                          )}
                         </div>
                         <button
-                          onClick={() => handleOrder(product)}
+                          onClick={(event) => handleAddToCart(product, event)}
                           className="flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1da851] text-white px-4 py-2 rounded-full text-sm font-medium transition-colors"
-                          aria-label={`Order via WhatsApp`}
+                          aria-label={`Add ${getProductName(product, language)} to cart`}
                         >
                           <FiShoppingCart size={14} />
                           {t('products.addToCart')}

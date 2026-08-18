@@ -81,7 +81,7 @@ export default function Hero() {
               <div className="w-80 h-80 sm:w-96 sm:h-96 bg-gradient-to-br from-peach/40 to-soft-pink/40 rounded-full blur-xl absolute inset-0 -m-8 animate-pulse-soft"></div>
               <div className="relative animate-float">
                 <img
-                  src="/image.png"
+                  src="/LOGO.png"
                   alt="LUMA - Carry A Smile"
                   className="w-80 sm:w-[420px] h-auto drop-shadow-lg"
                 />

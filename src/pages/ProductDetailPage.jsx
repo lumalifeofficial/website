@@ -6,11 +6,13 @@ import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 import LanguageSelector from '../components/LanguageSelector'
 import productsData from '../data/products'
+import { ProductGallery, ProductImage, getProductName } from '../utils/productImage.jsx'
+import { contactLinks } from '../config/contactLinks'
+import { animateAddToCart } from '../utils/cartAnimation'
 
 export default function ProductDetailPage() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const { id } = useParams()
-  const phoneNumber = '60198688608'
   const [quantity, setQuantity] = useState(1)
   const [isWishlisted, setIsWishlisted] = useState(false)
   const [addedToCart, setAddedToCart] = useState(false)
@@ -38,9 +40,10 @@ export default function ProductDetailPage() {
     .filter((p) => p.category === product.category && p.id !== product.id)
     .slice(0, 4)
 
-  const discount = Math.round((1 - product.price / product.originalPrice) * 100)
+  const hasDiscount = product.originalPrice > product.price
+  const discount = hasDiscount ? Math.round((1 - product.price / product.originalPrice) * 100) : 0
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (event) => {
     const cart = JSON.parse(localStorage.getItem('luma-cart') || '[]')
     const existing = cart.find((item) => item.id === product.id)
     if (existing) {
@@ -49,6 +52,12 @@ export default function ProductDetailPage() {
       cart.push({ id: product.id, quantity })
     }
     localStorage.setItem('luma-cart', JSON.stringify(cart))
+    animateAddToCart({
+      product,
+      language,
+      triggerElement: event.currentTarget,
+      imageElement: imageRef.current?.querySelector('[data-cart-image]') || imageRef.current,
+    })
     setAddedToCart(true)
     setTimeout(() => setAddedToCart(false), 2000)
   }
@@ -66,14 +75,14 @@ export default function ProductDetailPage() {
   }
 
   const handleOrder = () => {
-    const name = t(`shopPage.products.${product.nameKey}`)
+    const name = getProductName(product, language)
     const message = `Hi! I'd like to order:\n\nItem Code: ${product.code}\nProduct: ${name}\nQuantity: ${quantity}\nTotal: RM${(product.price * quantity).toFixed(2)}`
-    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank')
+    window.open(`${contactLinks.whatsapp.url}?text=${encodeURIComponent(message)}`, '_blank')
   }
 
   const handleShare = () => {
     if (navigator.share) {
-      navigator.share({ title: t(`shopPage.products.${product.nameKey}`), url: window.location.href })
+      navigator.share({ title: getProductName(product, language), url: window.location.href })
     } else {
       navigator.clipboard.writeText(window.location.href)
       alert(t('productDetail.linkCopied'))
@@ -108,10 +117,10 @@ export default function ProductDetailPage() {
           {/* Product Image */}
           <div
             ref={imageRef}
-            className={`bg-white rounded-3xl border border-peach/30 p-12 flex items-center justify-center min-h-[400px] scroll-zoom-in ${imageVisible ? 'visible' : ''}`}
+            className={`bg-white rounded-3xl border border-peach/30 p-4 flex items-center justify-center min-h-[520px] scroll-zoom-in ${imageVisible ? 'visible' : ''}`}
           >
-            <div className="text-center">
-              <span className="text-[120px] block animate-float">{product.emoji}</span>
+            <div className="w-full text-center">
+              <ProductGallery product={product} />
               <span className="inline-block mt-4 bg-ribbon-red text-white text-xs font-bold px-3 py-1 rounded-full">
                 {t(`products.${product.badgeKey}`)}
               </span>
@@ -125,7 +134,7 @@ export default function ProductDetailPage() {
           >
             <p className="text-xs font-mono text-warm-brown/40 mb-1">{product.code}</p>
             <h1 className="text-2xl md:text-3xl font-bold text-primary mb-3">
-              {t(`shopPage.products.${product.nameKey}`)}
+              {getProductName(product, language)}
             </h1>
 
             <div className="flex items-center gap-3 mb-4">
@@ -144,11 +153,15 @@ export default function ProductDetailPage() {
             </div>
 
             <div className="flex items-baseline gap-3 mb-6">
-              <span className="text-3xl font-bold text-ribbon-red">RM{product.price}</span>
-              <span className="text-lg text-warm-brown/40 line-through">RM{product.originalPrice}</span>
-              <span className="text-sm bg-ribbon-red/10 text-ribbon-red px-2 py-0.5 rounded-full font-medium">
-                -{discount}%
-              </span>
+              <span className="text-3xl font-bold text-ribbon-red">RM{product.price.toFixed(2)}</span>
+              {hasDiscount && (
+                <>
+                  <span className="text-lg text-warm-brown/40 line-through">RM{product.originalPrice.toFixed(2)}</span>
+                  <span className="text-sm bg-ribbon-red/10 text-ribbon-red px-2 py-0.5 rounded-full font-medium">
+                    -{discount}%
+                  </span>
+                </>
+              )}
             </div>
 
             <p className="text-warm-brown/70 leading-relaxed mb-6">
@@ -187,7 +200,7 @@ export default function ProductDetailPage() {
                 {t('productDetail.orderWhatsApp')}
               </button>
               <button
-                onClick={handleAddToCart}
+                onClick={(event) => handleAddToCart(event)}
                 className="w-full flex items-center justify-center gap-2 bg-ribbon-red hover:bg-ribbon-red/90 text-white py-3.5 rounded-full font-semibold transition-colors"
               >
                 <FiShoppingCart size={18} />
@@ -219,14 +232,18 @@ export default function ProductDetailPage() {
                   to={`/product/${rp.id}`}
                   className="group bg-white rounded-xl border border-peach/30 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
                 >
-                  <div className="bg-gradient-to-br from-cream to-soft-pink/50 p-6 flex items-center justify-center h-32">
-                    <span className="text-4xl group-hover:scale-110 transition-transform">{rp.emoji}</span>
+                  <div className="bg-gradient-to-br from-cream to-soft-pink/50 p-2 flex items-center justify-center h-44">
+                    <ProductImage
+                      product={rp}
+                      className="group-hover:scale-110 transition-transform"
+                      emojiClassName="text-4xl group-hover:scale-110 transition-transform"
+                    />
                   </div>
                   <div className="p-3">
                     <h3 className="font-medium text-primary text-sm line-clamp-1">
-                      {t(`shopPage.products.${rp.nameKey}`)}
+                      {getProductName(rp, language)}
                     </h3>
-                    <p className="text-ribbon-red font-bold text-sm">RM{rp.price}</p>
+                    <p className="text-ribbon-red font-bold text-sm">RM{rp.price.toFixed(2)}</p>
                   </div>
                 </Link>
               ))}

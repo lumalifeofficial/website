@@ -1,11 +1,15 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FiHeart, FiShoppingCart, FiStar } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation, useStaggerAnimation } from '../hooks/useScrollAnimation'
+import productsData from '../data/products'
+import { ProductImage, getProductName } from '../utils/productImage.jsx'
+import { animateAddToCart } from '../utils/cartAnimation'
 
 export default function Products() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
+  const navigate = useNavigate()
   const [headerRef, headerVisible] = useScrollAnimation({ threshold: 0.3 })
   const [gridRef, gridVisible] = useStaggerAnimation({ threshold: 0.05 })
   const [btnRef, btnVisible] = useScrollAnimation({ threshold: 0.5 })
@@ -24,7 +28,7 @@ export default function Products() {
     })
   }
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (product, event) => {
     const cart = JSON.parse(localStorage.getItem('luma-cart') || '[]')
     const existing = cart.find((item) => item.id === product.id)
     if (existing) {
@@ -33,76 +37,26 @@ export default function Products() {
       cart.push({ id: product.id, quantity: 1 })
     }
     localStorage.setItem('luma-cart', JSON.stringify(cart))
+    animateAddToCart({ product, language, triggerElement: event.currentTarget })
   }
 
-  const products = [
-    {
-      id: 1,
-      code: 'BL001',
-      name: t('products.bearLamp'),
-      price: 29.99,
-      originalPrice: 49.99,
-      rating: 4.8,
-      reviews: 124,
-      badge: t('products.bestSeller'),
-      emoji: '🧸💡',
-    },
-    {
-      id: 2,
-      code: 'MF002',
-      name: t('products.miniFan'),
-      price: 19.99,
-      originalPrice: 34.99,
-      rating: 4.6,
-      reviews: 89,
-      badge: t('products.hot'),
-      emoji: '🌸🌀',
-    },
-    {
-      id: 3,
-      code: 'SM003',
-      name: t('products.stirringMug'),
-      price: 24.99,
-      originalPrice: 39.99,
-      rating: 4.9,
-      reviews: 201,
-      badge: t('products.new'),
-      emoji: '🐻☕',
-    },
-    {
-      id: 4,
-      code: 'KM004',
-      name: t('products.kitchenMat'),
-      price: 14.99,
-      originalPrice: 24.99,
-      rating: 4.7,
-      reviews: 156,
-      badge: t('products.sale'),
-      emoji: '🎀🍳',
-    },
-    {
-      id: 5,
-      code: 'WC005',
-      name: t('products.wirelessCharger'),
-      price: 34.99,
-      originalPrice: 54.99,
-      rating: 4.8,
-      reviews: 312,
-      badge: t('products.popular'),
-      emoji: '☁️⚡',
-    },
-    {
-      id: 6,
-      code: 'AD006',
-      name: t('products.aromaDiffuser'),
-      price: 39.99,
-      originalPrice: 59.99,
-      rating: 4.9,
-      reviews: 178,
-      badge: t('products.trending'),
-      emoji: '🐻🌿',
-    },
-  ]
+  const openProductDetail = (productId) => {
+    navigate(`/product/${productId}`)
+  }
+
+  const handleCardKeyDown = (event, productId) => {
+    if (event.target !== event.currentTarget) return
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      openProductDetail(productId)
+    }
+  }
+
+  const products = productsData.slice(0, 6).map((product) => ({
+    ...product,
+    name: getProductName(product, language),
+    badge: t(`products.${product.badgeKey}`),
+  }))
 
   return (
     <section id="shop" className="py-20 bg-cream">
@@ -126,7 +80,12 @@ export default function Products() {
           {products.map((product, index) => (
             <div
               key={product.id}
-              className={`group bg-white rounded-2xl border border-peach/30 overflow-hidden hover:shadow-xl hover:shadow-peach/20 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:border-ribbon-red/30 scroll-rotate-in ${
+              role="link"
+              tabIndex={0}
+              onClick={() => openProductDetail(product.id)}
+              onKeyDown={(event) => handleCardKeyDown(event, product.id)}
+              aria-label={`View details for ${product.name}`}
+              className={`group bg-white rounded-2xl border border-peach/30 overflow-hidden cursor-pointer hover:shadow-xl hover:shadow-peach/20 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] hover:border-ribbon-red/30 focus:outline-none focus:ring-2 focus:ring-ribbon-red/60 focus:ring-offset-2 scroll-rotate-in ${
                 gridVisible ? 'visible' : ''
               }`}
               style={{
@@ -134,17 +93,22 @@ export default function Products() {
               }}
             >
               {/* Product Image Area */}
-              <div className="relative bg-gradient-to-br from-cream to-soft-pink/50 p-8 flex items-center justify-center h-56">
-                <span className="text-6xl group-hover:scale-125 group-hover:rotate-6 transition-transform duration-500 ease-out">
-                  {product.emoji}
-                </span>
+              <div data-cart-image className="relative bg-gradient-to-br from-cream to-soft-pink/50 p-2 flex items-center justify-center h-72">
+                <ProductImage
+                  product={product}
+                  className="group-hover:scale-110 transition-transform duration-500 ease-out"
+                  emojiClassName="text-6xl group-hover:scale-125 group-hover:rotate-6 transition-transform duration-500 ease-out"
+                />
                 {/* Badge */}
                 <span className="absolute top-4 left-4 bg-ribbon-red text-white text-xs font-bold px-3 py-1 rounded-full">
                   {product.badge}
                 </span>
                 {/* Wishlist */}
                 <button
-                  onClick={() => toggleWishlist(product.id)}
+                  onClick={(event) => {
+                    event.stopPropagation()
+                    toggleWishlist(product.id)
+                  }}
                   className={`absolute top-4 right-4 w-9 h-9 rounded-full shadow flex items-center justify-center transition-all duration-300 hover:scale-110 ${
                     wishlist.includes(product.id)
                       ? 'bg-ribbon-red text-white'
@@ -168,11 +132,16 @@ export default function Products() {
                 </div>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="text-xl font-bold text-primary">RM{product.price}</span>
-                    <span className="text-sm text-warm-brown/40 line-through">RM{product.originalPrice}</span>
+                    <span className="text-xl font-bold text-primary">RM{product.price.toFixed(2)}</span>
+                    {product.originalPrice > product.price && (
+                      <span className="text-sm text-warm-brown/40 line-through">RM{product.originalPrice.toFixed(2)}</span>
+                    )}
                   </div>
                   <button
-                    onClick={() => handleAddToCart(product)}
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      handleAddToCart(product)
+                    }}
                     className="flex items-center gap-2 bg-[#25D366] hover:bg-[#1da851] text-white px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 hover:shadow-md"
                     aria-label={`Add ${product.name} to cart`}
                   >

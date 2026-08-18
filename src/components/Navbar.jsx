@@ -14,7 +14,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center gap-2">
-            <img src="/logoHeaader.jpeg" alt="Luma" className="h-12 w-12 object-cover rounded-full" />
+            <img src="/LOGO.png" alt="Luma" className="h-12 w-auto object-contain" />
           </div>
 
           {/* Desktop Navigation */}
@@ -32,7 +32,7 @@ export default function Navbar() {
             <Link to="/wishlist" className="p-2 text-primary hover:text-ribbon-red transition-colors" aria-label="Wishlist">
               <FiHeart size={20} />
             </Link>
-            <Link to="/cart" className="relative p-2 text-primary hover:text-ribbon-red transition-colors" aria-label="Cart">
+            <Link to="/cart" data-cart-target="true" className="relative p-2 text-primary hover:text-ribbon-red transition-colors" aria-label="Cart">
               <FiShoppingCart size={20} />
             </Link>
           </div>

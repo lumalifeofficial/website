@@ -1,11 +1,29 @@
 import { Link } from 'react-router-dom'
-import { FiArrowLeft, FiCheckCircle, FiXCircle, FiAlertTriangle, FiPackage, FiShield } from 'react-icons/fi'
+import {
+  FiAlertTriangle,
+  FiArrowLeft,
+  FiCheckCircle,
+  FiClipboard,
+  FiFileText,
+  FiPackage,
+  FiShield,
+  FiXCircle,
+} from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 
 export default function ReturnPolicyPage() {
   const { t } = useLanguage()
+  const sections = [
+    { key: 'qualityIssue', icon: FiCheckCircle, iconClass: 'bg-green-100 text-green-600' },
+    { key: 'nonQualityIssue', icon: FiXCircle, iconClass: 'bg-red-100 text-red-500' },
+    { key: 'transitDamage', icon: FiAlertTriangle, iconClass: 'bg-yellow-100 text-yellow-600' },
+    { key: 'customItems', icon: FiPackage, iconClass: 'bg-purple-100 text-purple-600' },
+    { key: 'applicationRequirements', icon: FiClipboard, iconClass: 'bg-peach/30 text-ribbon-red' },
+    { key: 'dispatchCheck', icon: FiShield, iconClass: 'bg-blue-100 text-blue-600' },
+    { key: 'policyUpdates', icon: FiFileText, iconClass: 'bg-gray-100 text-gray-600' },
+  ]
 
   return (
     <>
@@ -30,93 +48,25 @@ export default function ReturnPolicyPage() {
               {t('returnPolicy.subtitle')}
             </p>
           </div>
-
           {/* Policy Sections */}
           <div className="space-y-8">
-            {/* Quality Issues */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <FiCheckCircle className="text-green-600" size={20} />
-                </div>
-                <div>
-                  <h2 className="text-lg font-semibold text-gray-900 mb-3">
-                    {t('returnPolicy.qualityIssue.title')}
-                  </h2>
-                  <p className="text-gray-600 leading-relaxed">
-                    {t('returnPolicy.qualityIssue.content')}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Non-Quality Issues */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-red-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <FiXCircle className="text-red-500" size={20} />
-                </div>
-                <div>
-                  <h2 className="text-lg font-semibold text-gray-900 mb-3">
-                    {t('returnPolicy.nonQualityIssue.title')}
-                  </h2>
-                  <p className="text-gray-600 leading-relaxed">
-                    {t('returnPolicy.nonQualityIssue.content')}
-                  </p>
+            {sections.map(({ key, icon: Icon, iconClass }) => (
+              <div key={key} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
+                <div className="flex items-start gap-4">
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 ${iconClass}`}>
+                    <Icon size={20} />
+                  </div>
+                  <div>
+                    <h2 className="text-lg font-semibold text-gray-900 mb-3">
+                      {t(`returnPolicy.${key}.title`)}
+                    </h2>
+                    <p className="text-gray-600 leading-relaxed whitespace-pre-line">
+                      {t(`returnPolicy.${key}.content`)}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            {/* Uncontrollable Factors */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <FiAlertTriangle className="text-yellow-600" size={20} />
-                </div>
-                <div>
-                  <h2 className="text-lg font-semibold text-gray-900 mb-3">
-                    {t('returnPolicy.transitDamage.title')}
-                  </h2>
-                  <p className="text-gray-600 leading-relaxed">
-                    {t('returnPolicy.transitDamage.content')}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Custom / Mystery Box */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-purple-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <FiPackage className="text-purple-600" size={20} />
-                </div>
-                <div>
-                  <h2 className="text-lg font-semibold text-gray-900 mb-3">
-                    {t('returnPolicy.customItems.title')}
-                  </h2>
-                  <p className="text-gray-600 leading-relaxed">
-                    {t('returnPolicy.customItems.content')}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Note */}
-            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 sm:p-8">
-              <div className="flex items-start gap-4">
-                <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <FiShield className="text-blue-600" size={20} />
-                </div>
-                <div>
-                  <h2 className="text-lg font-semibold text-gray-900 mb-3">
-                    {t('returnPolicy.note.title')}
-                  </h2>
-                  <p className="text-gray-600 leading-relaxed">
-                    {t('returnPolicy.note.content')}
-                  </p>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
 
           {/* Contact CTA */}

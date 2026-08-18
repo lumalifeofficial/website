@@ -129,7 +129,7 @@ export default function FAQPage() {
                 </button>
                 <div
                   className={`overflow-hidden transition-all duration-300 ${
-                    openIndex === index ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+                    openIndex === index ? 'max-h-[900px] opacity-100' : 'max-h-0 opacity-0'
                   }`}
                 >
                   <p className="px-4 pb-4 text-warm-brown/70 text-sm leading-relaxed whitespace-pre-line">

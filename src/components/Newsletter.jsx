@@ -1,15 +1,15 @@
 import { FaWhatsapp } from 'react-icons/fa'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { contactLinks } from '../config/contactLinks'
 
 export default function Newsletter() {
   const { t } = useLanguage()
   const [sectionRef, sectionVisible] = useScrollAnimation({ threshold: 0.2 })
   const [btnRef, btnVisible] = useScrollAnimation({ threshold: 0.3 })
 
-  const whatsappNumber = '60123456789'
   const whatsappMessage = encodeURIComponent('Hi LUMA! I would like to know more about your products.')
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`
+  const whatsappLink = `${contactLinks.whatsapp.url}?text=${whatsappMessage}`
 
   return (
     <section className="py-20 bg-gradient-to-br from-primary via-secondary to-dark-brown relative overflow-hidden">

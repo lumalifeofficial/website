@@ -1,9 +1,9 @@
-function WhatsAppButton() {
-  const phoneNumber = '60198688608' // Malaysian format without leading 0
+import { contactLinks } from '../config/contactLinks'
 
+function WhatsAppButton() {
   return (
     <a
-      href={`https://wa.me/${phoneNumber}`}
+      href={contactLinks.whatsapp.url}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"

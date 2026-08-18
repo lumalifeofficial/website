@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FiChevronLeft, FiMail, FiPhone, FiMapPin, FiClock, FiSend, FiMessageCircle } from 'react-icons/fi'
+import { FiChevronLeft, FiMail, FiPhone, FiMapPin, FiClock, FiSend, FiMessageCircle, FiGlobe } from 'react-icons/fi'
 import { FaWhatsapp, FaInstagram, FaFacebookF } from 'react-icons/fa'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation, useStaggerAnimation } from '../hooks/useScrollAnimation'
 import LanguageSelector from '../components/LanguageSelector'
+import { contactLinks } from '../config/contactLinks'
 
 export default function ContactPage() {
   const { t } = useLanguage()
@@ -23,8 +24,9 @@ export default function ContactPage() {
   }
 
   const contactInfo = [
-    { icon: <FiPhone size={20} />, key: 'phone', value: '019-8688608', href: 'tel:+60198688608' },
-    { icon: <FiMail size={20} />, key: 'email', value: 'lumalifeofficial@gmail.com', href: 'mailto:lumalifeofficial@gmail.com' },
+    { icon: <FiPhone size={20} />, key: 'phone', value: contactLinks.whatsapp.display, href: contactLinks.whatsapp.tel },
+    { icon: <FiMail size={20} />, key: 'email', value: contactLinks.email.address, href: contactLinks.email.url },
+    { icon: <FiGlobe size={20} />, key: 'website', value: contactLinks.website.display, href: contactLinks.website.url },
     { icon: <FiMapPin size={20} />, key: 'address', value: 'Malaysia' },
     { icon: <FiClock size={20} />, key: 'hours', value: '9AM - 9PM (GMT+8)' },
   ]
@@ -97,7 +99,7 @@ export default function ContactPage() {
                 <h4 className="font-semibold text-primary mb-4">{t('contactPage.quickContact')}</h4>
                 <div className="flex gap-3">
                   <a
-                    href="https://wa.me/60198688608"
+                    href={contactLinks.whatsapp.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 bg-[#25D366] text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-[#1da851] transition-colors"
@@ -106,7 +108,7 @@ export default function ContactPage() {
                     WhatsApp
                   </a>
                   <a
-                    href="https://www.instagram.com/lumalifeofficial?igsh=MXVydGF4aHMwc3N3ZA=="
+                    href={contactLinks.instagram.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 text-white rounded-full flex items-center justify-center hover:opacity-80 transition-opacity"
@@ -115,7 +117,7 @@ export default function ContactPage() {
                     <FaInstagram size={16} />
                   </a>
                   <a
-                    href="https://www.facebook.com/share/1RsKmqqNyk/"
+                    href={contactLinks.facebook.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-10 h-10 bg-blue-600 text-white rounded-full flex items-center justify-center hover:opacity-80 transition-opacity"

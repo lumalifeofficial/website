@@ -6,10 +6,11 @@ import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
 import LanguageSelector from '../components/LanguageSelector'
 import productsData from '../data/products'
+import { ProductImage, getProductName } from '../utils/productImage.jsx'
+import { contactLinks } from '../config/contactLinks'
 
 export default function CartPage() {
-  const { t } = useLanguage()
-  const phoneNumber = '60198688608'
+  const { t, language } = useLanguage()
   const [heroRef, heroVisible] = useScrollAnimation({ threshold: 0.1 })
 
   // Simulated cart with some initial items
@@ -49,13 +50,13 @@ export default function CartPage() {
       .map((item) => {
         const product = productsData.find((p) => p.id === item.id)
         if (!product) return ''
-        const name = t(`shopPage.products.${product.nameKey}`)
+        const name = getProductName(product, language)
         return `• ${name} (x${item.quantity}) - RM${(product.price * item.quantity).toFixed(2)}`
       })
       .join('\n')
 
     const message = `Hi! I'd like to order:\n\n${itemsList}\n\nTotal: RM${subtotal.toFixed(2)}`
-    window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, '_blank')
+    window.open(`${contactLinks.whatsapp.url}?text=${encodeURIComponent(message)}`, '_blank')
   }
 
   return (
@@ -105,13 +106,16 @@ export default function CartPage() {
                     {/* Mobile layout: stacked */}
                     <div className="flex items-center gap-3 sm:gap-4">
                       <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-cream to-soft-pink/50 rounded-lg flex items-center justify-center flex-shrink-0">
-                        <span className="text-2xl sm:text-3xl">{product.emoji}</span>
+                        <ProductImage
+                          product={product}
+                          emojiClassName="text-2xl sm:text-3xl"
+                        />
                       </div>
                       <div className="flex-1 min-w-0">
                         <h3 className="font-semibold text-primary text-sm truncate">
-                          {t(`shopPage.products.${product.nameKey}`)}
+                          {getProductName(product, language)}
                         </h3>
-                        <p className="text-ribbon-red font-bold text-sm">RM{product.price}</p>
+                        <p className="text-ribbon-red font-bold text-sm">RM{product.price.toFixed(2)}</p>
                       </div>
                       {/* Desktop: inline delete */}
                       <button
