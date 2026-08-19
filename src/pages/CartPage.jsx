@@ -8,6 +8,7 @@ import LanguageSelector from '../components/LanguageSelector'
 import productsData from '../data/products'
 import { ProductImage, getProductName } from '../utils/productImage.jsx'
 import { contactLinks } from '../config/contactLinks'
+import { getShippingEstimateText } from '../config/shipping'
 
 export default function CartPage() {
   const { t, language } = useLanguage()
@@ -44,6 +45,7 @@ export default function CartPage() {
     const product = productsData.find((p) => p.id === item.id)
     return sum + (product ? product.price * item.quantity : 0)
   }, 0)
+  const shippingEstimate = getShippingEstimateText(language)
 
   const handleCheckout = () => {
     const itemsList = cartItems
@@ -55,12 +57,12 @@ export default function CartPage() {
       })
       .join('\n')
 
-    const message = `Hi! I'd like to order:\n\n${itemsList}\n\nTotal: RM${subtotal.toFixed(2)}`
+    const message = `Hi! I'd like to order:\n\n${itemsList}\n\n${t('cartPage.shipping')}: ${shippingEstimate}\n${t('cartPage.total')}: RM${subtotal.toFixed(2)}`
     window.open(`${contactLinks.whatsapp.url}?text=${encodeURIComponent(message)}`, '_blank')
   }
 
   return (
-    <div className="min-h-screen bg-cream">
+    <div className="min-h-screen overflow-x-hidden bg-cream">
       {/* Header */}
       <div className="bg-white border-b border-peach/30 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -75,7 +77,7 @@ export default function CartPage() {
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-3 pb-28 pt-5 sm:px-4 sm:py-8 lg:pb-10">
+      <div className="max-w-6xl mx-auto px-3 pb-32 pt-5 sm:px-4 sm:py-8 lg:pb-10">
         {cartItems.length === 0 ? (
           <div
             ref={heroRef}
@@ -92,21 +94,21 @@ export default function CartPage() {
             </Link>
           </div>
         ) : (
-          <div className="grid lg:grid-cols-[minmax(0,1fr)_340px] gap-5 lg:gap-8">
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start lg:gap-8">
             {/* Cart Items */}
-            <div className="lg:col-span-2 space-y-4">
+            <div className="space-y-4">
               {cartItems.map((item) => {
                 const product = productsData.find((p) => p.id === item.id)
                 if (!product) return null
                 return (
                   <div
                     key={item.id}
-                    className="bg-white rounded-2xl border border-peach/30 p-3 shadow-sm transition-shadow hover:shadow-md sm:p-4"
+                    className="bg-white rounded-2xl border border-peach/30 p-3 shadow-sm transition-shadow hover:shadow-md sm:p-5"
                   >
-                    <div className="grid grid-cols-[88px_minmax(0,1fr)] gap-3 sm:grid-cols-[104px_minmax(0,1fr)_auto] sm:items-center sm:gap-4">
+                    <div className="grid grid-cols-[84px_minmax(0,1fr)_36px] gap-3 sm:grid-cols-[104px_minmax(0,1fr)_122px_110px_40px] sm:items-center sm:gap-4">
                       <div
                         data-cart-image
-                        className="aspect-square w-full overflow-hidden rounded-xl bg-gradient-to-br from-cream to-soft-pink/50 p-2 flex items-center justify-center"
+                        className="row-span-3 aspect-square w-full overflow-hidden rounded-xl bg-gradient-to-br from-cream to-soft-pink/50 p-2 flex items-center justify-center sm:row-span-1"
                       >
                         <ProductImage
                           product={product}
@@ -118,7 +120,7 @@ export default function CartPage() {
                         <p className="mb-1 text-[10px] font-mono uppercase tracking-wide text-warm-brown/40">
                           {product.code}
                         </p>
-                        <h3 className="font-semibold text-primary text-sm leading-snug sm:text-base">
+                        <h3 className="font-semibold text-primary text-[13px] leading-snug sm:text-base">
                           {getProductName(product, language)}
                         </h3>
                         <div className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1">
@@ -126,16 +128,7 @@ export default function CartPage() {
                           <span className="text-xs text-warm-brown/45">x{item.quantity}</span>
                         </div>
                       </div>
-                      <button
-                        onClick={() => removeItem(item.id)}
-                        className="hidden sm:flex h-10 w-10 items-center justify-center rounded-full text-warm-brown/40 transition-colors hover:bg-ribbon-red/10 hover:text-ribbon-red"
-                        aria-label="Remove item"
-                      >
-                        <FiTrash2 size={16} />
-                      </button>
-                    </div>
-                    <div className="mt-3 flex items-center justify-between gap-3 border-t border-peach/20 pt-3 sm:ml-[120px] sm:mt-0 sm:border-0 sm:pt-0">
-                      <div className="flex h-10 items-center rounded-full border border-peach/60 bg-light px-1 shadow-inner">
+                      <div className="col-start-2 row-start-2 flex h-10 w-fit items-center rounded-full border border-peach/60 bg-light px-1 shadow-inner sm:col-start-auto sm:row-start-auto">
                         <button
                           onClick={() => updateQuantity(item.id, -1)}
                           className="h-8 w-8 rounded-full flex items-center justify-center text-warm-brown/60 transition-colors hover:bg-white hover:text-ribbon-red"
@@ -154,18 +147,16 @@ export default function CartPage() {
                           <FiPlus size={14} />
                         </button>
                       </div>
-                      <div className="flex min-w-0 items-center gap-2">
-                        <p className="text-right font-bold text-primary text-base leading-tight">
-                          RM{(product.price * item.quantity).toFixed(2)}
-                        </p>
-                        <button
-                          onClick={() => removeItem(item.id)}
-                          className="sm:hidden h-10 w-10 flex-shrink-0 rounded-full flex items-center justify-center text-warm-brown/40 transition-colors hover:bg-ribbon-red/10 hover:text-ribbon-red"
-                          aria-label="Remove item"
-                        >
-                          <FiTrash2 size={16} />
-                        </button>
-                      </div>
+                      <p className="col-start-2 col-span-2 row-start-3 self-center justify-self-end text-right font-bold text-primary text-[15px] leading-tight sm:col-start-auto sm:col-span-1 sm:row-start-auto sm:justify-self-auto sm:text-base">
+                        RM{(product.price * item.quantity).toFixed(2)}
+                      </p>
+                      <button
+                        onClick={() => removeItem(item.id)}
+                        className="col-start-3 row-start-1 flex h-9 w-9 items-center justify-center justify-self-end rounded-full text-warm-brown/40 transition-colors hover:bg-ribbon-red/10 hover:text-ribbon-red sm:col-start-auto sm:row-start-auto sm:h-10 sm:w-10 sm:justify-self-auto"
+                        aria-label="Remove item"
+                      >
+                        <FiTrash2 size={16} />
+                      </button>
                     </div>
                   </div>
                 )
@@ -189,7 +180,7 @@ export default function CartPage() {
                   </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-warm-brown/60">{t('cartPage.shipping')}</span>
-                    <span className="text-green-600 font-medium">{t('cartPage.free')}</span>
+                    <span className="text-right text-warm-brown/70 font-medium">{shippingEstimate}</span>
                   </div>
                   <div className="border-t border-peach/30 pt-3 flex justify-between">
                     <span className="font-bold text-primary">{t('cartPage.total')}</span>
@@ -212,15 +203,15 @@ export default function CartPage() {
               </div>
             </div>
 
-            <div className="fixed inset-x-0 bottom-0 z-40 border-t border-peach/40 bg-white/95 px-3 py-3 shadow-[0_-12px_30px_rgba(74,44,42,0.12)] backdrop-blur lg:hidden">
-              <div className="mx-auto flex max-w-5xl items-center gap-3">
-                <div className="min-w-0 flex-none w-[92px]">
+            <div className="fixed inset-x-0 bottom-0 z-40 border-t border-peach/40 bg-white/95 px-3 py-2.5 pb-[calc(env(safe-area-inset-bottom)+0.625rem)] shadow-[0_-12px_30px_rgba(74,44,42,0.12)] backdrop-blur lg:hidden">
+              <div className="mx-auto grid max-w-5xl grid-cols-[minmax(0,1fr)_minmax(168px,1.35fr)] items-center gap-2">
+                <div className="min-w-0">
                   <p className="text-xs text-warm-brown/55">{t('cartPage.total')}</p>
-                  <p className="truncate text-xl font-bold text-ribbon-red">RM{subtotal.toFixed(2)}</p>
+                  <p className="truncate text-lg font-bold text-ribbon-red">RM{subtotal.toFixed(2)}</p>
                 </div>
                 <button
                   onClick={handleCheckout}
-                  className="flex min-h-12 min-w-0 flex-1 items-center justify-center gap-2 rounded-full bg-[#25D366] px-3 py-3 text-xs font-semibold text-white shadow-lg shadow-[#25D366]/20 transition-colors hover:bg-[#1da851] sm:text-sm"
+                  className="flex min-h-11 min-w-0 items-center justify-center gap-2 rounded-full bg-[#25D366] px-2.5 py-2.5 text-[11px] font-semibold text-white shadow-lg shadow-[#25D366]/20 transition-colors hover:bg-[#1da851] sm:text-sm"
                 >
                   <FaWhatsapp size={18} />
                   {t('cartPage.checkoutWhatsApp')}

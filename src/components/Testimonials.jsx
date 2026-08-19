@@ -1,46 +1,52 @@
-import { FiStar, FiHeart } from 'react-icons/fi'
+import { FiStar, FiHeart, FiShoppingBag } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation, useStaggerAnimation } from '../hooks/useScrollAnimation'
+import productsData from '../data/products'
+import { getProductImages, getProductName } from '../utils/productImage'
 
 export default function Testimonials() {
-  const { t } = useLanguage()
+  const { t, language } = useLanguage()
   const [headerRef, headerVisible] = useScrollAnimation({ threshold: 0.3 })
   const [cardsRef, cardsVisible] = useStaggerAnimation({ threshold: 0.1 })
 
   const testimonials = [
     {
-      name: 'Sarah M.',
+      name: 'Aina Z.',
       role: t('testimonials.verifiedBuyer'),
-      avatar: '👩',
+      location: t('testimonials.location1'),
+      product: productsData[0],
+      avatar: 'AZ',
       rating: 5,
       text: t('testimonials.review1'),
     },
     {
-      name: 'James K.',
+      name: 'Michelle T.',
       role: t('testimonials.verifiedBuyer'),
-      avatar: '👨',
+      location: t('testimonials.location2'),
+      product: productsData[7],
+      avatar: 'MT',
       rating: 5,
       text: t('testimonials.review2'),
     },
     {
-      name: 'Lisa R.',
+      name: 'Nurul H.',
       role: t('testimonials.verifiedBuyer'),
-      avatar: '👩‍🦰',
+      location: t('testimonials.location3'),
+      product: productsData[5],
+      avatar: 'NH',
       rating: 5,
       text: t('testimonials.review3'),
     },
   ]
 
-  // Alternate animation directions per card
   const cardAnimations = ['scroll-fade-left', 'scroll-fade-up', 'scroll-fade-right']
 
   return (
-    <section className="py-20 bg-white/50 overflow-hidden">
+    <section className="py-20 bg-white/60 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header - blur in */}
         <div
           ref={headerRef}
-          className={`text-center mb-16 scroll-blur-in ${headerVisible ? 'visible' : ''}`}
+          className={'text-center mb-16 scroll-blur-in ' + (headerVisible ? 'visible' : '')}
         >
           <span className="text-ribbon-red font-semibold text-sm uppercase tracking-wider">{t('testimonials.sectionLabel')}</span>
           <h2 className="text-3xl sm:text-4xl font-bold text-primary mt-2 mb-4">
@@ -51,43 +57,72 @@ export default function Testimonials() {
           </p>
         </div>
 
-        {/* Testimonial Cards - each from different direction */}
         <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className={`bg-cream p-8 rounded-2xl border border-peach/30 hover:shadow-lg hover:shadow-peach/20 hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ${cardAnimations[index]} ${
-                cardsVisible ? 'visible' : ''
-              }`}
-              style={{
-                transitionDelay: cardsVisible ? `${index * 150}ms` : '0ms',
-              }}
-            >
-              {/* Stars */}
-              <div className="flex gap-1 mb-4">
-                {Array.from({ length: testimonial.rating }).map((_, i) => (
-                  <FiStar key={i} className="text-gold fill-current" size={16} />
-                ))}
-              </div>
+          {testimonials.map((testimonial, index) => {
+            const [productImage] = getProductImages(testimonial.product, language)
+            const productName = getProductName(testimonial.product, language)
+            const cardClassName =
+              'bg-cream p-6 sm:p-7 rounded-xl border border-peach/40 hover:shadow-lg hover:shadow-peach/20 hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ' +
+              cardAnimations[index] +
+              (cardsVisible ? ' visible' : '')
 
-              {/* Text */}
-              <p className="text-warm-brown/70 leading-relaxed mb-6">"{testimonial.text}"</p>
-
-              {/* Author */}
-              <div className="flex items-center gap-3">
-                <div className="w-12 h-12 bg-soft-pink rounded-full flex items-center justify-center text-2xl border-2 border-peach">
-                  {testimonial.avatar}
+            return (
+              <div
+                key={testimonial.name}
+                className={cardClassName}
+                style={{
+                  transitionDelay: cardsVisible ? index * 150 + 'ms' : '0ms',
+                }}
+              >
+                <div className="mb-5 flex items-center gap-4 border-b border-peach/40 pb-5">
+                  <div className="h-16 w-16 shrink-0 overflow-hidden rounded-lg bg-white p-1.5">
+                    {productImage ? (
+                      <img
+                        src={productImage}
+                        alt={productName}
+                        className="h-full w-full object-contain"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <span className="flex h-full w-full items-center justify-center text-3xl">
+                        {testimonial.product.emoji}
+                      </span>
+                    )}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="mb-1 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-ribbon-red">
+                      <FiShoppingBag size={13} />
+                      {t('testimonials.productTag')}
+                    </p>
+                    <p className="text-sm font-semibold leading-snug text-primary">
+                      {productName}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-semibold text-primary">{testimonial.name}</p>
-                  <p className="text-sm text-warm-brown/50 flex items-center gap-1">
-                    <FiHeart size={10} className="text-ribbon-red" />
-                    {testimonial.role}
-                  </p>
+
+                <div className="flex gap-1 mb-4">
+                  {Array.from({ length: testimonial.rating }).map((_, i) => (
+                    <FiStar key={i} className="text-gold fill-current" size={16} />
+                  ))}
+                </div>
+
+                <p className="text-warm-brown/75 leading-relaxed mb-6">"{testimonial.text}"</p>
+
+                <div className="flex items-center gap-3">
+                  <div className="w-12 h-12 bg-soft-pink rounded-full flex items-center justify-center text-sm font-bold text-primary border-2 border-peach">
+                    {testimonial.avatar}
+                  </div>
+                  <div>
+                    <p className="font-semibold text-primary">{testimonial.name}</p>
+                    <p className="text-sm text-warm-brown/55 flex items-center gap-1">
+                      <FiHeart size={10} className="text-ribbon-red" />
+                      {testimonial.role} · {testimonial.location}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>

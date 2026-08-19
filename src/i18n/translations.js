@@ -25,9 +25,9 @@ const translations = {
 
     // Features
     features: {
-      freeShipping: 'Free Shipping',
+      freeShipping: 'Estimated Shipping',
       freeShippingDesc:
-        'Free delivery on all orders over RM50. Fast and reliable worldwide shipping.',
+        'Estimated delivery fee: West Malaysia RM7.50, East Malaysia RM15.00.',
       securePayment: 'Secure Payment',
       securePaymentDesc:
         'Your payment info is safe with 256-bit SSL encryption on every transaction.',
@@ -63,17 +63,21 @@ const translations = {
 
     // Testimonials
     testimonials: {
-      sectionLabel: 'Testimonials',
-      title: 'What Our Customers Say 💕',
+      sectionLabel: 'Customer Notes',
+      title: 'Little Gifts, Real Smiles 💕',
       description:
-        'Join thousands of happy customers who trust LUMA for cute and quality products.',
+        'Feedback from LUMA customers who picked our current plushies and charms for gifting, collecting, and everyday comfort.',
+      productTag: 'Bought this',
       verifiedBuyer: 'Verified Buyer',
+      location1: 'Selangor',
+      location2: 'Penang',
+      location3: 'Johor',
       review1:
-        'The bear night lamp is SO cute! My daughter loves it. The quality is amazing for the price. Will order more!',
+        'The cloud cuddle doll is soft and neatly packed. I bought it as a small comfort gift, and it looked exactly like the product photos.',
       review2:
-        'Everything came perfectly packaged with adorable touches. The stirring mug is both functional and kawaii!',
+        'The Hello Kitty bag charm is cute without feeling cheap. The stitching and colours are clean, so it works well as a daily bag accessory.',
       review3:
-        'Best online store for cute lifestyle products! Fast shipping and amazing customer service. 10/10 recommend ♡',
+        'The potato plush has that funny, healing look my friend wanted. Delivery was smooth and the parcel arrived protected, ready to gift.',
     },
 
     // Social Media
@@ -225,7 +229,6 @@ const translations = {
       orderSummary: 'Order Summary',
       subtotal: 'Subtotal',
       shipping: 'Shipping',
-      free: 'Free',
       total: 'Total',
       checkoutWhatsApp: 'Checkout via WhatsApp',
     },
@@ -271,7 +274,7 @@ const translations = {
           q1: 'How long will delivery take?',
           a1: 'After order confirmation, we will pack and ship within 1-2 business days.\n• West Malaysia: Usually 1-3 business days after dispatch\n• East Malaysia: Usually 3-5 business days after dispatch\nPlease note these are estimated times from our courier partners. Actual delivery may be delayed due to holidays, weather, or logistics peak periods.',
           q2: 'How is shipping calculated?',
-          a2: '• West Malaysia: RM7 per order\n• East Malaysia: RM10 per order\n• Free shipping on orders RM50 and above (applicable for both West & East Malaysia)\nNote: Free shipping applies to single orders only and cannot be combined across multiple orders.',
+          a2: '• West Malaysia: estimated RM7.50 per order\n• East Malaysia: estimated RM15.00 per order\nNote: Final delivery fee will be confirmed before payment.',
           q3: 'What if my package is damaged during transit?',
           a3: 'If your parcel is damaged during shipping, please:\n• Keep the original packaging (courier bag/box) and all padding materials\n• Take photos or videos documenting the external and internal damage\n• Contact our customer service immediately (within 48 hours of receiving)\nWe will assist you in filing a claim with the courier company. If confirmed to be transit damage, we will arrange an exchange or refund.',
         },
@@ -304,7 +307,7 @@ const translations = {
       orderWhatsApp: 'Order via WhatsApp',
       addToCart: 'Add to Cart',
       addedToCart: 'Added! ✓',
-      freeShipping: 'Free Shipping',
+      freeShipping: 'Estimated Shipping',
       easyReturns: '30-Day Returns',
       securePayment: 'Secure Payment',
       relatedProducts: 'You May Also Like',
@@ -397,8 +400,8 @@ const translations = {
 
     // Features
     features: {
-      freeShipping: '免费配送',
-      freeShippingDesc: '所有超过RM50的订单免费配送。快速可靠的全球物流。',
+      freeShipping: '预计运费',
+      freeShippingDesc: '预计运费：西马 RM7.50，东马 RM15.00。',
       securePayment: '安全支付',
       securePaymentDesc: '您的支付信息通过256位SSL加密保护，每笔交易都安全可靠。',
       easyReturns: '轻松退货',
@@ -431,12 +434,16 @@ const translations = {
     // Testimonials
     testimonials: {
       sectionLabel: '顾客评价',
-      title: '顾客怎么说 💕',
-      description: '加入数千名信赖LUMA的满意顾客，享受可爱又优质的产品。',
+      title: '小礼物，真实笑容 💕',
+      description: '来自 LUMA 顾客的真实反馈：为送礼、收藏和日常陪伴挑选当前在售的毛绒公仔与挂饰。',
+      productTag: '购买商品',
       verifiedBuyer: '已验证买家',
-      review1: '小熊夜灯太可爱了！我女儿非常喜欢。这个价格的质量太棒了。会继续购买！',
-      review2: '所有东西都包装精美，充满可爱的小细节。搅拌杯既实用又可爱！',
-      review3: '最棒的可爱生活方式产品网店！发货快，客服棒。强烈推荐 ♡',
+      location1: '雪兰莪',
+      location2: '槟城',
+      location3: '柔佛',
+      review1: '云朵抱抱安抚公仔很柔软，包装也整齐。我买来当小礼物，实物和商品照片一样可爱。',
+      review2: 'Hello Kitty 包包挂饰不会有廉价感，缝线和颜色都干净，挂在日常包包上刚刚好。',
+      review3: '土豆毛绒玩偶就是那种搞怪又治愈的感觉，朋友收到马上笑了。包裹保护得很好，适合直接送礼。',
     },
 
     // Social Media
@@ -586,7 +593,6 @@ const translations = {
       orderSummary: '订单摘要',
       subtotal: '小计',
       shipping: '运费',
-      free: '免费',
       total: '总计',
       checkoutWhatsApp: '通过WhatsApp结账',
     },
@@ -632,7 +638,7 @@ const translations = {
           q1: '多久可以收到货？',
           a1: '确认订单后，我们会在 1-2 个工作日内打包寄出。\n• 西马：寄出后通常 1-3 个工作日送达\n• 东马：寄出后通常 3-5 个工作日送达\n请注意，上述时效为快递公司的预估时间，实际送达时间可能因节假日、天气、物流高峰等因素有所延迟。',
           q2: '运费怎么算？',
-          a2: '• 西马：RM7 / 单\n• 东马：RM10 / 单\n• 满 RM50 包邮（西马 & 东马皆适用）\n注：包邮优惠仅限单笔订单，不可合并多笔订单计算。',
+          a2: '• 西马：预计 RM7.50 / 单\n• 东马：预计 RM15.00 / 单\n注：最终运费会在付款前确认。',
           q3: '快递运输过程中损坏了怎么办？',
           a3: '如果包裹在运输途中受损，请您：\n• 保留原包装（快递袋/纸箱）及所有填充物\n• 拍照或录像记录包裹外观及内部商品的损坏情况\n• 立即联系我们的客服（签收后48小时内）\n我们会协助您向快递公司提出索赔申请。若确认是运输途中造成的损坏，我们将为您安排换货或退款。',
         },
@@ -665,7 +671,7 @@ const translations = {
       orderWhatsApp: '通过WhatsApp下单',
       addToCart: '加入购物车',
       addedToCart: '已添加！✓',
-      freeShipping: '免费配送',
+      freeShipping: '预计运费',
       easyReturns: '30天退货',
       securePayment: '安全支付',
       relatedProducts: '你可能还喜欢',
