@@ -18,7 +18,7 @@ const translations = {
       titleLine1: 'Small Gifts,',
       titleLine2: 'Big Hearts',
       description:
-        'LUMA LIFE — cute, heartwarming plushies & lifestyle accessories. Every little gift carries a big smile. Nationwide delivery across Malaysia.',
+        'LUMAA LIFE — cute, heartwarming plushies & lifestyle accessories. Every little gift carries a big smile. Nationwide delivery across Malaysia.',
       shopNow: 'Shop Now',
       viewCollections: 'View Collections',
     },
@@ -156,11 +156,11 @@ const translations = {
       title: 'About Us',
       backToHome: 'Back',
       heroTitle: 'Small Gifts, Big Hearts',
-      heroDescription: 'LUMA LIFE is a small Malaysian brand focused on designing and selling cute, heartwarming plushies and lifestyle accessories. We believe gifts don\'t need to be expensive — what matters is the thought behind them.',
+      heroDescription: 'LUMAA LIFE is a small Malaysian brand focused on designing and selling cute, heartwarming plushies and lifestyle accessories. We believe gifts don\'t need to be expensive — what matters is the thought behind them.',
       ourStoryLabel: 'Our Story',
       ourStoryTitle: 'Carry A Smile',
       ourStoryP1: 'Every plushie, every keychain, every little clip — they are all "tiny joys" we\'ve handpicked for everyday life. We currently focus on cute abstract-style plushies, paired with keychains, pendants, hair clips and other small accessories — perfect for keeping, gifting, or as a little surprise.',
-      ourStoryP2: 'All products are personally curated, packed, and shipped by us, ensuring every heartfelt gift arrives at your hands complete and safe. LUMA LIFE ENTERPRISE is a registered Malaysian company (SSM: 003818165-X). We may be small, but we are serious about what we do.',
+      ourStoryP2: 'All products are personally curated, packed, and shipped by us, ensuring every heartfelt gift arrives at your hands complete and safe. LUMAA LIFE ENTERPRISE is a registered Malaysian company (SSM: 003818165-X). We may be small, but we are serious about what we do.',
       valuesLabel: 'Our Values',
       valuesTitle: 'What We Stand For',
       values: {
@@ -249,7 +249,7 @@ const translations = {
       title: 'FAQ',
       backToHome: 'Back',
       heroTitle: 'Frequently Asked Questions',
-      heroDescription: 'Find quick answers to the most common questions about LUMA LIFE.',
+      heroDescription: 'Find quick answers to the most common questions about LUMAA LIFE.',
       searchPlaceholder: 'Search for answers...',
       noResults: 'No matching questions found.',
       stillNeedHelp: 'Still Need Help?',
@@ -264,7 +264,7 @@ const translations = {
       faqs: {
         ordering: {
           q1: 'How do I place an order?',
-          a1: 'You can order through the following ways:\n• Direct message: Contact us via WhatsApp / Instagram / Facebook and let us know what you\'d like to purchase.\n• E-commerce platforms: Search "LUMA LIFE" on Shopee / Lazada / TikTok Shop to find our store and place an order.\nAll confirmed orders will be packed and shipped within 1-2 business days.',
+          a1: 'You can order through the following ways:\n• Direct message: Contact us via WhatsApp / Instagram / Facebook and let us know what you\'d like to purchase.\n• E-commerce platforms: Search "LUMAA LIFE" on Shopee / Lazada / TikTok Shop to find our store and place an order.\nAll confirmed orders will be packed and shipped within 1-2 business days.',
           q2: 'Can I cancel my order after placing it?',
           a2: 'Before shipping: If you change your mind, you can contact us to cancel your order before it is packed and shipped. We will issue a full refund.\nAfter shipping: Once the parcel has been handed to the courier, the order cannot be cancelled. You may refer to our return policy below after receiving the package.\nPer the Consumer Protection (Electronic Trade Transactions) Regulations 2024, sellers must not unreasonably delay order confirmation. We will confirm your order promptly — please notify us as soon as possible if you need to cancel.',
           q3: 'Can I customize a plushie?',
@@ -292,7 +292,7 @@ const translations = {
           q2: 'How do I become a reseller/agent?',
           a2: 'We welcome interested friends to join our agent team!\nAgent model:\n• You promote, we handle shipping\n• Earn profit margin commission on every successful sale\n• No inventory needed, zero cost to start\nHow to apply: Please message our customer service and we will send you the detailed agent guidelines and commission structure.',
           q3: 'Are you a properly registered company?',
-          a3: 'Yes. LUMA LIFE ENTERPRISE is officially registered with SSM Malaysia, registration number 003818165-X.\nPer the Malaysian Consumer Protection Act 1999 and Consumer Protection (Electronic Trade Transactions) Regulations 2024, we commit to:\n• Providing truthful, accurate product information\n• Covering re-delivery costs for products with quality issues\n• Protecting your personal data and privacy\n• Handling every transaction fairly',
+          a3: 'Yes. LUMAA LIFE ENTERPRISE is officially registered with SSM Malaysia, registration number 003818165-X.\nPer the Malaysian Consumer Protection Act 1999 and Consumer Protection (Electronic Trade Transactions) Regulations 2024, we commit to:\n• Providing truthful, accurate product information\n• Covering re-delivery costs for products with quality issues\n• Protecting your personal data and privacy\n• Handling every transaction fairly',
         },
       },
     },
@@ -354,7 +354,7 @@ const translations = {
     // Footer
     footer: {
       brandDescription:
-        'Carry a smile ♡ LUMA LIFE — cute, heartwarming plushies & lifestyle accessories from Malaysia. Small gifts, big hearts. SSM: 003818165-X',
+        'Carry a smile ♡ LUMAA LIFE — cute, heartwarming plushies & lifestyle accessories from Malaysia. Small gifts, big hearts. SSM: 003818165-X',
       quickLinks: 'Quick Links',
       home: 'Home',
       shop: 'Shop',
@@ -368,7 +368,7 @@ const translations = {
       faq: 'FAQ',
       privacyPolicy: 'Privacy Policy',
       contactUs: 'Contact Us',
-      copyright: '© 2026 LUMA LIFE ENTERPRISE (003818165-X). Made with',
+      copyright: '© 2026 LUMAA LIFE ENTERPRISE (003818165-X). Made with',
       carryASmile: 'Carry A Smile',
       weAccept: 'We accept:',
     },
@@ -393,7 +393,7 @@ const translations = {
       titleLine1: '小礼物，',
       titleLine2: '大心意',
       description:
-        'LUMA LIFE — 可爱有温度的玩偶与生活小物。每一份小礼物，都承载着大大的微笑。📦 全马寄送',
+        'LUMAA LIFE — 可爱有温度的玩偶与生活小物。每一份小礼物，都承载着大大的微笑。📦 全马寄送',
       shopNow: '立即购物',
       viewCollections: '浏览系列',
     },
@@ -520,11 +520,11 @@ const translations = {
       title: '关于我们',
       backToHome: '返回',
       heroTitle: '小礼物，大心意',
-      heroDescription: 'LUMA LIFE 是一家马来西亚的小型品牌，专注于设计与销售可爱、有温度的玩偶与生活小物。我们相信，礼物不在于贵重，而在于那份用心。',
+      heroDescription: 'LUMAA LIFE 是一家马来西亚的小型品牌，专注于设计与销售可爱、有温度的玩偶与生活小物。我们相信，礼物不在于贵重，而在于那份用心。',
       ourStoryLabel: '我们的故事',
       ourStoryTitle: 'Carry A Smile',
       ourStoryP1: '每一只玩偶、每一件钥匙圈、每一枚小夹子，都是我们为日常生活挑选的"小小快乐"。目前我们以可爱抽象风格的玩偶为主，搭配钥匙圈、挂件、发夹等小物，适合自留、送礼、或作为一份随手的惊喜。',
-      ourStoryP2: '所有产品都经过我们自己选品、打包、寄出，确保每一份心意都完整、安全地抵达你手中。LUMA LIFE ENTERPRISE 是马来西亚注册公司（SSM: 003818165-X）。我们很小，但我们很认真。',
+      ourStoryP2: '所有产品都经过我们自己选品、打包、寄出，确保每一份心意都完整、安全地抵达你手中。LUMAA LIFE ENTERPRISE 是马来西亚注册公司（SSM: 003818165-X）。我们很小，但我们很认真。',
       valuesLabel: '我们的价值观',
       valuesTitle: '我们坚持的信念',
       values: {
@@ -613,7 +613,7 @@ const translations = {
       title: '常见问题',
       backToHome: '返回',
       heroTitle: '常见问题',
-      heroDescription: '在这里找到关于 LUMA LIFE 最常见问题的快速解答。',
+      heroDescription: '在这里找到关于 LUMAA LIFE 最常见问题的快速解答。',
       searchPlaceholder: '搜索答案...',
       noResults: '没有找到匹配的问题。',
       stillNeedHelp: '还有其他问题？',
@@ -628,7 +628,7 @@ const translations = {
       faqs: {
         ordering: {
           q1: '如何下单？',
-          a1: '您可以通过以下方式向我们下单：\n• 直接私信：通过 WhatsApp / Instagram / Facebook 私信我们，告知您想购买的商品。\n• 电商平台：在 Shopee / Lazada / TikTok Shop 搜索"LUMA LIFE"即可找到我们的店铺并下单。\n所有订单确认后，我们会在 1-2 个工作日内安排打包寄出。',
+          a1: '您可以通过以下方式向我们下单：\n• 直接私信：通过 WhatsApp / Instagram / Facebook 私信我们，告知您想购买的商品。\n• 电商平台：在 Shopee / Lazada / TikTok Shop 搜索"LUMAA LIFE"即可找到我们的店铺并下单。\n所有订单确认后，我们会在 1-2 个工作日内安排打包寄出。',
           q2: '下单后可以取消订单吗？',
           a2: '发货前：如果您改变主意，可以在订单尚未打包发货前联系我们取消订单，我们将全额退款。\n发货后：一旦包裹已交由快递公司寄出，订单将无法取消。您可以在收到包裹后参考下方的退货政策处理。\n根据《2024年消费者保护（电子贸易交易）条例》，卖家在收到订单后不得无故延迟确认订单。我们会在您下单后及时确认，若您需要取消请尽早通知我们。',
           q3: '可以定制玩偶吗？',
@@ -656,7 +656,7 @@ const translations = {
           q2: '怎么成为代理？',
           a2: '欢迎有兴趣的朋友加入我们的代理团队！\n代理模式：\n• 您负责推广，我们负责发货\n• 每成功售出一单，您赚取差价佣金\n• 无需囤货，零成本启动\n如何申请：请私信我们的客服，我们会发送详细的代理须知和佣金结构给您。',
           q3: '你们是正规注册的公司吗？',
-          a3: '是的。LUMA LIFE ENTERPRISE 是在马来西亚SSM正式注册的公司，注册号为 003818165-X。\n根据马来西亚《1999年消费者保护法》及《2024年消费者保护（电子贸易交易）条例》，我们承诺：\n• 提供真实、准确的产品信息\n• 对存在质量问题的商品承担重新配送费用\n• 保护您的个人数据及隐私\n• 公平处理每一笔交易',
+          a3: '是的。LUMAA LIFE ENTERPRISE 是在马来西亚SSM正式注册的公司，注册号为 003818165-X。\n根据马来西亚《1999年消费者保护法》及《2024年消费者保护（电子贸易交易）条例》，我们承诺：\n• 提供真实、准确的产品信息\n• 对存在质量问题的商品承担重新配送费用\n• 保护您的个人数据及隐私\n• 公平处理每一笔交易',
         },
       },
     },
@@ -718,7 +718,7 @@ const translations = {
     // Footer
     footer: {
       brandDescription:
-        '带上微笑 ♡ LUMA LIFE — 来自马来西亚的可爱玩偶与生活小物品牌。小礼物，大心意。SSM: 003818165-X',
+        '带上微笑 ♡ LUMAA LIFE — 来自马来西亚的可爱玩偶与生活小物品牌。小礼物，大心意。SSM: 003818165-X',
       quickLinks: '快速链接',
       home: '首页',
       shop: '商店',
@@ -732,7 +732,7 @@ const translations = {
       faq: '常见问题',
       privacyPolicy: '隐私政策',
       contactUs: '联系我们',
-      copyright: '© 2026 LUMA LIFE ENTERPRISE (003818165-X)。用心制作',
+      copyright: '© 2026 LUMAA LIFE ENTERPRISE (003818165-X)。用心制作',
       carryASmile: '带上微笑',
       weAccept: '支付方式：',
     },
