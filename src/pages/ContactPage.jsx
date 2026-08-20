@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FiChevronLeft, FiMail, FiPhone, FiMapPin, FiClock, FiSend, FiMessageCircle, FiGlobe } from 'react-icons/fi'
+import { FiChevronLeft, FiMail, FiPhone, FiMapPin, FiClock, FiMessageCircle, FiGlobe } from 'react-icons/fi'
 import { FaWhatsapp, FaInstagram, FaFacebookF } from 'react-icons/fa'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation, useStaggerAnimation } from '../hooks/useScrollAnimation'
@@ -210,7 +210,7 @@ export default function ContactPage() {
                   type="submit"
                   className="flex items-center gap-2 bg-ribbon-red hover:bg-ribbon-red/90 text-white px-6 py-3 rounded-full font-semibold text-sm transition-colors"
                 >
-                  <FiSend size={16} />
+                  <FaWhatsapp size={16} />
                   {t('contactPage.form.submit')}
                 </button>
               </form>

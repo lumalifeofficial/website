@@ -214,7 +214,7 @@ const translations = {
         subjectPlaceholder: 'What is this about?',
         message: 'Message',
         messagePlaceholder: 'Tell us how we can help...',
-        submit: 'Send Message',
+        submit: 'Send WhatsApp',
       },
     },
 
@@ -578,7 +578,7 @@ const translations = {
         subjectPlaceholder: '这是关于什么的？',
         message: '留言',
         messagePlaceholder: '告诉我们如何帮助你...',
-        submit: '发送消息',
+        submit: '发送 WhatsApp',
       },
     },
 
