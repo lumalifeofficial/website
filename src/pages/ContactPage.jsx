@@ -10,17 +10,24 @@ import { contactLinks } from '../config/contactLinks'
 export default function ContactPage() {
   const { t } = useLanguage()
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' })
-  const [submitted, setSubmitted] = useState(false)
   const [heroRef, heroVisible] = useScrollAnimation({ threshold: 0.1 })
   const [infoRef, infoVisible] = useStaggerAnimation({ threshold: 0.1 })
   const [formRef, formVisible] = useScrollAnimation({ threshold: 0.1 })
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    // Frontend-only: simulate submission
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 3000)
-    setFormData({ name: '', email: '', subject: '', message: '' })
+
+    const whatsappMessage = [
+      'Hi LUMA LIFE, I would like to contact you.',
+      '',
+      `Name: ${formData.name}`,
+      `Email: ${formData.email}`,
+      `Subject: ${formData.subject}`,
+      '',
+      `Message: ${formData.message}`,
+    ].join('\n')
+
+    window.location.href = `${contactLinks.whatsapp.url}?text=${encodeURIComponent(whatsappMessage)}`
   }
 
   const contactInfo = [
@@ -141,11 +148,6 @@ export default function ContactPage() {
                 <h3 className="text-xl font-bold text-primary">{t('contactPage.formTitle')}</h3>
               </div>
 
-              {submitted && (
-                <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-xl text-green-700 text-sm flex items-center gap-2">
-                  <span>✅</span> {t('contactPage.successMessage')}
-                </div>
-              )}
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid sm:grid-cols-2 gap-5">
