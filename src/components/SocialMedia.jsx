@@ -1,6 +1,5 @@
 import { FaInstagram, FaFacebookF, FaTiktok, FaTelegramPlane, FaWhatsapp } from 'react-icons/fa'
 import { SiXiaohongshu } from 'react-icons/si'
-import { FiGlobe, FiMail } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation, useStaggerAnimation } from '../hooks/useScrollAnimation'
 import { contactLinks } from '../config/contactLinks'
@@ -57,23 +56,7 @@ export default function SocialMedia() {
       handle: contactLinks.whatsapp.display,
       color: 'from-green-400 to-emerald-500',
       url: contactLinks.whatsapp.url,
-      description: 'Chat with us on WhatsApp',
-    },
-    {
-      name: 'Gmail',
-      icon: FiMail,
-      handle: contactLinks.email.address,
-      color: 'from-red-500 to-orange-400',
-      url: contactLinks.email.url,
-      description: t('social.email') || 'Email us',
-    },
-    {
-      name: 'Website',
-      icon: FiGlobe,
-      handle: contactLinks.website.display,
-      color: 'from-emerald-400 to-teal-500',
-      url: contactLinks.website.url,
-      description: contactLinks.website.previewDisplay,
+      description: t('social.whatsapp'),
     },
   ]
 
@@ -124,7 +107,7 @@ export default function SocialMedia() {
 
                 {/* Arrow */}
                 <div className="mt-4 flex items-center gap-2 text-white/80 group-hover:text-white transition-colors">
-                  <span className="text-sm font-medium">{t('social.followUs')}</span>
+                  <span className="text-sm font-medium">{t('social.connectWithUs')}</span>
                   <span className="group-hover:translate-x-2 transition-transform duration-300">→</span>
                 </div>
               </div>

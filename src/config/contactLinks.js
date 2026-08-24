@@ -41,7 +41,5 @@ export const contactLinks = {
     name: 'Website',
     display: 'lumalifeofficial.com',
     url: 'https://lumalifeofficial.com',
-    previewDisplay: 'website-eight-alpha-15.vercel.app',
-    previewUrl: 'https://website-eight-alpha-15.vercel.app',
   },
 }
