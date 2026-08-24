@@ -8,6 +8,9 @@ export default function Features() {
   const [sectionRef, sectionVisible] = useScrollAnimation({ threshold: 0.15 })
   const sliderRef = useRef(null)
   const pauseAutoSlideRef = useRef(false)
+  const autoScrollingRef = useRef(false)
+  const lastAutoScrollTimeRef = useRef(0)
+  const resumeTimeoutRef = useRef(null)
 
   const features = [
     {
@@ -28,31 +31,70 @@ export default function Features() {
     },
   ]
 
-  const sliderItems = [...features, ...features]
+  const sliderItems = [...features, ...features, ...features]
 
   useEffect(() => {
     const slider = sliderRef.current
     if (!slider) return undefined
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduceMotion) return undefined
+    const getLoopWidth = () => slider.scrollWidth / 3
 
-    const intervalId = window.setInterval(() => {
-      if (pauseAutoSlideRef.current) return
+    const keepInsideMiddleLoop = () => {
+      const loopWidth = getLoopWidth()
+      if (!loopWidth) return
 
-      const firstCard = slider.querySelector('[data-feature-card]')
-      const gap = 16
-      const step = firstCard ? firstCard.offsetWidth + gap : 336
-      const loopPoint = slider.scrollWidth / 2
+      if (slider.scrollLeft < loopWidth * 0.5) {
+        slider.scrollLeft += loopWidth
+      } else if (slider.scrollLeft > loopWidth * 1.5) {
+        slider.scrollLeft -= loopWidth
+      }
+    }
 
-      if (slider.scrollLeft >= loopPoint - step) {
-        slider.scrollTo({ left: 0, behavior: 'auto' })
+    const placeInMiddleLoop = () => {
+      const loopWidth = getLoopWidth()
+      if (loopWidth) slider.scrollLeft = loopWidth
+    }
+
+    let animationId
+    placeInMiddleLoop()
+
+    const handleScroll = () => {
+      keepInsideMiddleLoop()
+
+      if (autoScrollingRef.current || Date.now() - lastAutoScrollTimeRef.current < 120) return
+
+      pauseAutoSlideRef.current = true
+      window.clearTimeout(resumeTimeoutRef.current)
+      resumeTimeoutRef.current = window.setTimeout(() => {
+        pauseAutoSlideRef.current = false
+      }, 900)
+    }
+
+    const tick = () => {
+      if (!reduceMotion && !pauseAutoSlideRef.current) {
+        autoScrollingRef.current = true
+        lastAutoScrollTimeRef.current = Date.now()
+        slider.scrollLeft += 0.45
+        keepInsideMiddleLoop()
+        window.requestAnimationFrame(() => {
+          autoScrollingRef.current = false
+        })
       }
 
-      slider.scrollBy({ left: step, behavior: 'smooth' })
-    }, 2600)
+      animationId = window.requestAnimationFrame(tick)
+    }
 
-    return () => window.clearInterval(intervalId)
+    slider.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', placeInMiddleLoop)
+    animationId = window.requestAnimationFrame(tick)
+
+    return () => {
+      window.cancelAnimationFrame(animationId)
+      window.clearTimeout(resumeTimeoutRef.current)
+      slider.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', placeInMiddleLoop)
+    }
   }, [])
 
   const pauseAutoSlide = () => {
@@ -74,7 +116,7 @@ export default function Features() {
 
         <div
           ref={sliderRef}
-          className="features-swipe flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory px-5 sm:px-8 pb-3"
+          className="features-swipe flex gap-4 overflow-x-auto px-5 sm:px-8 pb-3"
           onMouseEnter={pauseAutoSlide}
           onMouseLeave={resumeAutoSlide}
           onPointerDown={pauseAutoSlide}
@@ -85,7 +127,7 @@ export default function Features() {
             <div
               key={`${feature.title}-${index}`}
               data-feature-card
-              className="flex-shrink-0 w-[82vw] max-w-[320px] sm:w-[320px] snap-center"
+              className="flex-shrink-0 w-[82vw] max-w-[320px] sm:w-[320px]"
             >
               <div className="h-full text-center p-6 bg-cream rounded-2xl border border-peach/30 hover:shadow-lg hover:shadow-peach/20 hover:-translate-y-2 hover:scale-105 transition-all duration-300">
                 <div className="inline-flex items-center justify-center w-14 h-14 bg-soft-pink rounded-xl mb-4">
