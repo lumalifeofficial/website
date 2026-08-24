@@ -75,7 +75,7 @@ export default function Features() {
       if (!reduceMotion && !pauseAutoSlideRef.current) {
         autoScrollingRef.current = true
         lastAutoScrollTimeRef.current = Date.now()
-        slider.scrollLeft += 0.45
+        slider.scrollLeft += 1.15
         keepInsideMiddleLoop()
         window.requestAnimationFrame(() => {
           autoScrollingRef.current = false
@@ -99,10 +99,14 @@ export default function Features() {
 
   const pauseAutoSlide = () => {
     pauseAutoSlideRef.current = true
+    window.clearTimeout(resumeTimeoutRef.current)
   }
 
   const resumeAutoSlide = () => {
-    pauseAutoSlideRef.current = false
+    window.clearTimeout(resumeTimeoutRef.current)
+    resumeTimeoutRef.current = window.setTimeout(() => {
+      pauseAutoSlideRef.current = false
+    }, 1800)
   }
 
   return (
@@ -117,8 +121,6 @@ export default function Features() {
         <div
           ref={sliderRef}
           className="features-swipe flex gap-4 overflow-x-auto px-5 sm:px-8 pb-3"
-          onMouseEnter={pauseAutoSlide}
-          onMouseLeave={resumeAutoSlide}
           onPointerDown={pauseAutoSlide}
           onPointerUp={resumeAutoSlide}
           onPointerCancel={resumeAutoSlide}
