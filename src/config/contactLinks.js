@@ -10,7 +10,7 @@ export const contactLinks = {
     url: 'https://www.facebook.com/share/1Dte1ddjKg/',
   },
   xhs: {
-    name: 'XHS',
+    name: '小红书',
     handle: 'LUMAALIFE',
     url: 'https://xhslink.com/m/3S6djVTHWs7',
   },

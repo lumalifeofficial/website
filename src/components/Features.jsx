@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { FiTruck, FiShield, FiHeadphones } from 'react-icons/fi'
 import { useLanguage } from '../i18n/LanguageContext'
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
@@ -5,6 +6,8 @@ import { useScrollAnimation } from '../hooks/useScrollAnimation'
 export default function Features() {
   const { t } = useLanguage()
   const [sectionRef, sectionVisible] = useScrollAnimation({ threshold: 0.15 })
+  const sliderRef = useRef(null)
+  const pauseAutoSlideRef = useRef(false)
 
   const features = [
     {
@@ -25,22 +28,63 @@ export default function Features() {
     },
   ]
 
+  const sliderItems = [...features, ...features]
+
+  useEffect(() => {
+    const slider = sliderRef.current
+    if (!slider) return undefined
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduceMotion) return undefined
+
+    const intervalId = window.setInterval(() => {
+      if (pauseAutoSlideRef.current) return
+
+      const firstCard = slider.querySelector('[data-feature-card]')
+      const gap = 16
+      const step = firstCard ? firstCard.offsetWidth + gap : 336
+      const loopPoint = slider.scrollWidth / 2
+
+      if (slider.scrollLeft >= loopPoint - step) {
+        slider.scrollTo({ left: 0, behavior: 'auto' })
+      }
+
+      slider.scrollBy({ left: step, behavior: 'smooth' })
+    }, 2600)
+
+    return () => window.clearInterval(intervalId)
+  }, [])
+
+  const pauseAutoSlide = () => {
+    pauseAutoSlideRef.current = true
+  }
+
+  const resumeAutoSlide = () => {
+    pauseAutoSlideRef.current = false
+  }
 
   return (
     <section
       ref={sectionRef}
       className={`py-12 sm:py-16 bg-white/50 overflow-hidden scroll-fade-up ${sectionVisible ? 'visible' : ''}`}
     >
-      <div className="relative">
-        {/* Gradient fade edges */}
+      <div className="relative mx-auto max-w-[1088px]">
         <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-white/50 to-transparent z-10 pointer-events-none"></div>
         <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-white/50 to-transparent z-10 pointer-events-none"></div>
 
-        {/* Swipe container */}
-        <div className="features-swipe flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory px-5 sm:px-8 pb-3">
-          {features.map((feature, index) => (
+        <div
+          ref={sliderRef}
+          className="features-swipe flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory px-5 sm:px-8 pb-3"
+          onMouseEnter={pauseAutoSlide}
+          onMouseLeave={resumeAutoSlide}
+          onPointerDown={pauseAutoSlide}
+          onPointerUp={resumeAutoSlide}
+          onPointerCancel={resumeAutoSlide}
+        >
+          {sliderItems.map((feature, index) => (
             <div
-              key={index}
+              key={`${feature.title}-${index}`}
+              data-feature-card
               className="flex-shrink-0 w-[82vw] max-w-[320px] sm:w-[320px] snap-center"
             >
               <div className="h-full text-center p-6 bg-cream rounded-2xl border border-peach/30 hover:shadow-lg hover:shadow-peach/20 hover:-translate-y-2 hover:scale-105 transition-all duration-300">

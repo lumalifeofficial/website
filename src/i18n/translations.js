@@ -95,6 +95,7 @@ const translations = {
       title: 'Connect With Us ♡',
       description:
         'Reach us directly for orders, questions, reseller enquiries, and the latest LUMAA LIFE updates.',
+      followUs: 'Follow Us',
       connectWithUs: 'Connect Us',
       instagram: 'Daily cuteness & product showcases',
       facebook: 'Community deals & live events',
@@ -467,7 +468,8 @@ const translations = {
       sectionLabel: '联系我们',
       title: '联系我们 ♡',
       description: '有订单、问题、代理咨询或想看 LUMAA LIFE 最新消息，都可以通过以下方式联系我们。',
-      connectWithUs: '联系我们',
+      followUs: 'Follow Us',
+      connectWithUs: 'Connect Us',
       instagram: '每日可爱内容和产品展示',
       facebook: '社区优惠和直播活动',
       tiktok: '热门开箱和可爱好物',

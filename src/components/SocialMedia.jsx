@@ -17,6 +17,7 @@ export default function SocialMedia() {
       color: 'from-purple-400 via-pink-400 to-orange-300',
       url: contactLinks.instagram.url,
       description: t('social.instagram'),
+      actionLabel: t('social.followUs'),
     },
     {
       name: 'Facebook',
@@ -25,6 +26,7 @@ export default function SocialMedia() {
       color: 'from-blue-400 to-blue-500',
       url: contactLinks.facebook.url,
       description: t('social.facebook'),
+      actionLabel: t('social.followUs'),
     },
     {
       name: 'TikTok',
@@ -33,14 +35,16 @@ export default function SocialMedia() {
       color: 'from-gray-700 to-gray-800',
       url: contactLinks.tiktok.url,
       description: t('social.tiktok'),
+      actionLabel: t('social.followUs'),
     },
     {
-      name: '小红书 (XHS)',
+      name: '小红书',
       icon: SiXiaohongshu,
       handle: contactLinks.xhs.handle,
       color: 'from-red-400 to-red-500',
       url: contactLinks.xhs.url,
       description: t('social.xhs') || 'Follow us on Xiaohongshu',
+      actionLabel: t('social.followUs'),
     },
     {
       name: 'Telegram',
@@ -49,6 +53,7 @@ export default function SocialMedia() {
       color: 'from-sky-400 to-blue-500',
       url: contactLinks.telegram.url,
       description: t('social.telegram') || 'Join us on Telegram',
+      actionLabel: t('social.connectWithUs'),
     },
     {
       name: 'WhatsApp',
@@ -57,6 +62,7 @@ export default function SocialMedia() {
       color: 'from-green-400 to-emerald-500',
       url: contactLinks.whatsapp.url,
       description: t('social.whatsapp'),
+      actionLabel: t('social.connectWithUs'),
     },
   ]
 
@@ -107,7 +113,7 @@ export default function SocialMedia() {
 
                 {/* Arrow */}
                 <div className="mt-4 flex items-center gap-2 text-white/80 group-hover:text-white transition-colors">
-                  <span className="text-sm font-medium">{t('social.connectWithUs')}</span>
+                  <span className="text-sm font-medium">{platform.actionLabel}</span>
                   <span className="group-hover:translate-x-2 transition-transform duration-300">→</span>
                 </div>
               </div>
