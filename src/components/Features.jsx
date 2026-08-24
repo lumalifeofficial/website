@@ -25,8 +25,6 @@ export default function Features() {
     },
   ]
 
-  // Duplicate features for seamless infinite scroll
-  const scrollItems = [...features, ...features]
 
   return (
     <section
@@ -35,17 +33,17 @@ export default function Features() {
     >
       <div className="relative">
         {/* Gradient fade edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-r from-white/50 to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-16 sm:w-32 bg-gradient-to-l from-white/50 to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute left-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-r from-white/50 to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-8 sm:w-16 bg-gradient-to-l from-white/50 to-transparent z-10 pointer-events-none"></div>
 
-        {/* Infinite scroll container */}
-        <div className="flex animate-scroll-right hover:[animation-play-state:paused]">
-          {scrollItems.map((feature, index) => (
+        {/* Swipe container */}
+        <div className="features-swipe flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory px-5 sm:px-8 pb-3">
+          {features.map((feature, index) => (
             <div
               key={index}
-              className="flex-shrink-0 w-[280px] sm:w-[320px] mx-3 sm:mx-4"
+              className="flex-shrink-0 w-[82vw] max-w-[320px] sm:w-[320px] snap-center"
             >
-              <div className="text-center p-6 bg-cream rounded-2xl border border-peach/30 hover:shadow-lg hover:shadow-peach/20 hover:-translate-y-2 hover:scale-105 transition-all duration-300">
+              <div className="h-full text-center p-6 bg-cream rounded-2xl border border-peach/30 hover:shadow-lg hover:shadow-peach/20 hover:-translate-y-2 hover:scale-105 transition-all duration-300">
                 <div className="inline-flex items-center justify-center w-14 h-14 bg-soft-pink rounded-xl mb-4">
                   <feature.icon className="text-ribbon-red" size={24} />
                 </div>
