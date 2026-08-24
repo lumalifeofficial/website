@@ -72,25 +72,38 @@ const translations = {
       location1: 'Selangor',
       location2: 'Penang',
       location3: 'Johor',
+      location4: 'Kuala Lumpur',
+      location5: 'Melaka',
+      location6: 'Perak',
       review1:
         'The cloud cuddle doll is soft and neatly packed. I bought it as a small comfort gift, and it looked exactly like the product photos.',
       review2:
         'The Hello Kitty bag charm is cute without feeling cheap. The stitching and colours are clean, so it works well as a daily bag accessory.',
       review3:
         'The potato plush has that funny, healing look my friend wanted. Delivery was smooth and the parcel arrived protected, ready to gift.',
+      review4:
+        'The bear plush feels nice to hug and the size is just right for a birthday gift. My niece liked it immediately.',
+      review5:
+        'The chef bear is cute and the design is special. Packaging was good, just wish the ribbon detail was a little neater.',
+      review6:
+        'The cream bear pendant is light and easy to clip onto a bag. It looks sweet in photos and arrived in good condition.',
     },
 
     // Social Media
     social: {
-      sectionLabel: 'Stay Connected',
-      title: 'Follow Us ♡',
+      sectionLabel: 'Connect With Us',
+      title: 'Connect With Us ♡',
       description:
-        'Join our adorable community for exclusive deals, sneak peeks, behind-the-scenes content, and daily smiles.',
-      followUs: 'Follow Us',
+        'Reach us directly for orders, questions, reseller enquiries, and the latest LUMAA LIFE updates.',
+      connectWithUs: 'Connect Us',
       instagram: 'Daily cuteness & product showcases',
       facebook: 'Community deals & live events',
       tiktok: 'Viral unboxings & kawaii hauls',
+      xhs: 'Follow us on Xiaohongshu',
       telegram: 'Join our Telegram channel',
+      whatsapp: 'Chat with us on WhatsApp',
+      email: 'Email us anytime',
+      website: 'Visit our official website',
       youtube: 'Reviews, tutorials & vlogs',
       twitter: 'Updates, launches & giveaways',
     },
@@ -444,18 +457,25 @@ const translations = {
       review1: '云朵抱抱安抚公仔很柔软，包装也整齐。我买来当小礼物，实物和商品照片一样可爱。',
       review2: 'Hello Kitty 包包挂饰不会有廉价感，缝线和颜色都干净，挂在日常包包上刚刚好。',
       review3: '土豆毛绒玩偶就是那种搞怪又治愈的感觉，朋友收到马上笑了。包裹保护得很好，适合直接送礼。',
+      review4: '抱抱熊手感很好，大小很适合当生日礼物。侄女一拿到就很喜欢。',
+      review5: '厨师小熊很可爱，造型也特别。包装不错，只是蝴蝶结细节如果再整齐一点会更好。',
+      review6: '云朵小熊挂件很轻，夹在包包上很方便。拍照很好看，收到时状态也很好。',
     },
 
     // Social Media
     social: {
-      sectionLabel: '保持联系',
-      title: '关注我们 ♡',
-      description: '加入我们可爱的社区，获取独家优惠、抢先看、幕后内容和每日微笑。',
-      followUs: '关注我们',
+      sectionLabel: '联系我们',
+      title: '联系我们 ♡',
+      description: '有订单、问题、代理咨询或想看 LUMAA LIFE 最新消息，都可以通过以下方式联系我们。',
+      connectWithUs: '联系我们',
       instagram: '每日可爱内容和产品展示',
       facebook: '社区优惠和直播活动',
       tiktok: '热门开箱和可爱好物',
-      telegram: '加入我们的Telegram频道',
+      xhs: '关注我们的小红书',
+      telegram: '加入我们的 Telegram 频道',
+      whatsapp: '通过 WhatsApp 与我们聊天',
+      email: '随时发邮件给我们',
+      website: '浏览我们的官方网站',
       youtube: '评测、教程和日常',
       twitter: '更新、上新和抽奖',
     },

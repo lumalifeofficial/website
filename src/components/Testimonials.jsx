@@ -34,8 +34,35 @@ export default function Testimonials() {
       location: t('testimonials.location3'),
       product: productsData[5],
       avatar: 'NH',
-      rating: 5,
+      rating: 4,
       text: t('testimonials.review3'),
+    },
+    {
+      name: 'Grace L.',
+      role: t('testimonials.verifiedBuyer'),
+      location: t('testimonials.location4'),
+      product: productsData[1],
+      avatar: 'GL',
+      rating: 5,
+      text: t('testimonials.review4'),
+    },
+    {
+      name: 'Farah M.',
+      role: t('testimonials.verifiedBuyer'),
+      location: t('testimonials.location5'),
+      product: productsData[3],
+      avatar: 'FM',
+      rating: 3,
+      text: t('testimonials.review5'),
+    },
+    {
+      name: 'Yvonne C.',
+      role: t('testimonials.verifiedBuyer'),
+      location: t('testimonials.location6'),
+      product: productsData[8],
+      avatar: 'YC',
+      rating: 4,
+      text: t('testimonials.review6'),
     },
   ]
 
@@ -57,13 +84,13 @@ export default function Testimonials() {
           </p>
         </div>
 
-        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => {
             const [productImage] = getProductImages(testimonial.product, language)
             const productName = getProductName(testimonial.product, language)
             const cardClassName =
               'bg-cream p-6 sm:p-7 rounded-xl border border-peach/40 hover:shadow-lg hover:shadow-peach/20 hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ' +
-              cardAnimations[index] +
+              cardAnimations[index % cardAnimations.length] +
               (cardsVisible ? ' visible' : '')
 
             return (
@@ -101,8 +128,12 @@ export default function Testimonials() {
                 </div>
 
                 <div className="flex gap-1 mb-4">
-                  {Array.from({ length: testimonial.rating }).map((_, i) => (
-                    <FiStar key={i} className="text-gold fill-current" size={16} />
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <FiStar
+                      key={i}
+                      className={i < testimonial.rating ? 'text-gold fill-current' : 'text-peach'}
+                      size={16}
+                    />
                   ))}
                 </div>
 
